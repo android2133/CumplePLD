@@ -1,0 +1,100 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>Carga de Transacciones</h2>
+  <button mat-icon-button (click)="close()" [disabled]="isSimulating">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <div class="row">
+    <div class="col-md-5">
+      <h4>Fuentes de Datos Conectadas</h4>
+      <ul class="source-list">
+        <li *ngFor="let source of dataSources">
+          <span>{{ source.name }}</span>
+          <mat-chip [ngClass]="{
+            'bg-success': source.status === 'CONECTADO',
+            'bg-warning': source.status === 'CONECTANDO',
+            'bg-secondary': source.status === 'DESCONECTADO'
+          }">{{ source.status }}</mat-chip>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-7">
+      <h4>Carga Manual Mediante Layout</h4>
+      
+      <button mat-stroked-button (click)="downloadTemplate()" class="w-100 mb-3">
+        <mat-icon>download</mat-icon>
+        Descargar plantilla de Excel
+      </button>
+
+      <div class="drop-zone" 
+           appDragDrop 
+           (fileDropped)="handleFile($event)"
+           (click)="fileInput.click()"
+           [class.has-file]="file">
+        <div *ngIf="!file; else fileInfo">
+          <mat-icon>cloud_upload</mat-icon>
+          <span>Arrastra y suelta el archivo</span>
+        </div>
+        <ng-template #fileInfo>
+          <mat-icon class="file-icon">description</mat-icon>
+          <span>{{ file?.name }}</span>
+        </ng-template>
+      </div>
+      <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+
+      <div *ngIf="file" class="d-flex gap-2 mt-2">
+        <button mat-flat-button class="flex-fill" [disabled]="excelData.length > 0" (click)="loadFileForPreview()">
+          <mat-icon>visibility</mat-icon>
+          Cargar
+        </button>
+        <button mat-stroked-button class="flex-fill" (click)="clearFile()">
+          <mat-icon>delete_sweep</mat-icon>
+          Borrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="excelData.length > 0" class="preview-section mt-4">
+    <h5>Previsualización de Datos</h5>
+    <div class="table-container">
+      <table mat-table [dataSource]="excelData">
+        <ng-container matColumnDef="FECHA">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let row"> {{row['FECHA']}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Cliente">
+          <th mat-header-cell *matHeaderCellDef> Cliente </th>
+          <td mat-cell *matCellDef="let row"> {{row['Cliente']}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Operación">
+          <th mat-header-cell *matHeaderCellDef> Operación </th>
+          <td mat-cell *matCellDef="let row"> {{row['Operación']}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Monto">
+          <th mat-header-cell *matHeaderCellDef> Monto </th>
+          <td mat-cell *matCellDef="let row"> {{row['Monto'] | currency}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <div class="w-100" *ngIf="isSimulating || uploadSuccess">
+    <mat-progress-bar mode="indeterminate" *ngIf="isSimulating && !uploadSuccess"></mat-progress-bar>
+    <div class="status-text-container">
+      <span *ngIf="isSimulating && !uploadSuccess" class="status-text">Validando y cargando...</span>
+      <span *ngIf="uploadSuccess" class="status-text success">¡Carga exitosa!</span>
+    </div>
+  </div>
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-flat-button color="primary" [disabled]="excelData.length === 0 || isSimulating" (click)="validateAndSave()">
+    Validar y Guardar
+  </button>
+</mat-dialog-actions>

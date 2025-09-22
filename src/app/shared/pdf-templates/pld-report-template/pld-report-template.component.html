@@ -1,0 +1,39 @@
+<div class="report-container">
+  <header class="report-header">
+    <img src="assets/cumplepld-logo-dark.svg" alt="CumplePLD Logo" class="logo">
+    <div class="header-text">
+      <h1>{{ reportTitle }}</h1>
+      <p>Generado el: {{ currentDate | date:'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+  </header>
+
+  <main class="report-content">
+    <h2>Transacciones Monitoreadas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Operación</th>
+          <th>Monto</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td>{{ item.fecha | date:'dd/MM/yyyy' }}</td>
+          <td>{{ item.cliente }}</td>
+          <td>{{ item.operacion }}</td>
+          <td class="amount">{{ item.monto | currency:'MXN' }}</td>
+          <td [ngClass]="{'suspicious': item.estado === 'Sospechosa'}">
+            {{ item.estado }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer class="report-footer">
+    <p>Este es un documento confidencial generado por la plataforma CumplePLD.</p>
+  </footer>
+</div>

@@ -1,0 +1,119 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  height: 64px;
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-icon {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  mat-icon {
+    font-size: 24px;
+  }
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  width: 300px;
+
+  mat-icon {
+    color: var(--text-secondary-color);
+  }
+
+  input {
+    border: none;
+    background: none;
+    outline: none;
+    margin-left: 0.5rem;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+.header-logo {
+  height: 25px;
+  opacity: 1;
+  &.ies{
+    height: 50px;
+  }
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border-color);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+
+  span {
+    font-weight: 500;
+  }
+}
+
+// --- Responsive ---
+@media (max-width: 768px) {
+  .search-bar {
+    display: none; // Ocultamos la barra de búsqueda en pantallas pequeñas
+  }
+
+  .header-logo, .divider, .user-profile span {
+    display: none; // Ocultamos elementos para ahorrar espacio
+  }
+}

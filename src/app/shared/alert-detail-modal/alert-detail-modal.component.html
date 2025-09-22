@@ -1,0 +1,78 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>Alerta #{{ data.id }} – Compra Inusual de Boletos</h2>
+  <button mat-icon-button (click)="closeDialog()" aria-label="Cerrar diálogo">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <section class="mb-4">
+          <h3>Resumen de la Alerta</h3>
+          <p><strong>Cliente:</strong> {{ data.cliente }}</p>
+          <p><strong>Fecha:</strong> {{ data.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong>Monto:</strong> {{ data.monto | currency:'MXN' }}</p>
+          <div *ngFor="let coincidencia of data.coincidencias" class="coincidence-item">
+             <mat-icon color="warn">warning</mat-icon>
+             <span>{{ coincidencia }}</span>
+          </div>
+        </section>
+
+        <section>
+          <h3>Acciones de la Alerta</h3>
+          <div class="row">
+            <div class="col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Estado</mat-label>
+                <mat-select value="nueva">
+                  <mat-option value="nueva">Nueva</mat-option>
+                  <mat-option value="en-investigacion">En Investigación</mat-option>
+                  <mat-option value="cerrada">Cerrada</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Asignada a</mat-label>
+                <mat-select value="javier">
+                  <mat-option value="javier">Javier (Analista)</mat-option>
+                  <mat-option value="supervisor">Supervisor</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="col-md-6">
+        <mat-card class="mb-4">
+          <mat-card-header>
+            <mat-card-title>Reglas de Negocio Activadas</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>1. Supera Umbral de $75,000 MXN</p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button color="primary">Configurar</button>
+          </mat-card-actions>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Avisos y Reportes a la Autoridad</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Reporte 3403 – <strong>Pendiente</strong></p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="closeDialog()">Cerrar Alerta</button>
+  <button mat-flat-button color="primary">Escalar a Supervisor</button>
+</mat-dialog-actions>

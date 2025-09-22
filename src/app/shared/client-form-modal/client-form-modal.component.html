@@ -1,0 +1,104 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>{{ isEditMode ? 'Editar Cliente' : 'Nuevo Cliente' }}</h2>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="clientForm">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>RFC</mat-label>
+          <input matInput formControlName="rfc">
+        </mat-form-field>
+      </form>
+
+      <h4>Documentos Requeridos</h4>
+      <div class="document-upload-list">
+        <div *ngFor="let key of documentKeys"
+             class="drop-zone-small"
+             [ngClass]="'status-' + documentStates[key].status"
+             (click)="fileInput.setAttribute('data-doc-key', key); fileInput.click()">
+          
+          <div class="status-icon">
+            <ng-container [ngSwitch]="documentStates[key].status">
+              <mat-spinner *ngSwitchCase="'loading'" diameter="24"></mat-spinner>
+              <mat-icon *ngSwitchCase="'success'">check_circle</mat-icon>
+              <mat-icon *ngSwitchCase="'error'">error</mat-icon>
+              <mat-icon *ngSwitchDefault>upload_file</mat-icon>
+            </ng-container>
+          </div>
+          
+          <div class="file-info">
+            <span class="document-label">{{ documentStates[key].label }}</span>
+            <span class="file-name" *ngIf="documentStates[key].fileName">{{ documentStates[key].fileName }}</span>
+          </div>
+        </div>
+        <input type="file" #fileInput (change)="onFileChange($event, fileInput.getAttribute('data-doc-key')!)" hidden>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <mat-card class="validation-card">
+        <mat-card-title>Validaciones IA</mat-card-title>
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab label="Documentos">
+              <div class="validation-list" *ngIf="validationResults.length > 0; else noValidations">
+                <div *ngFor="let v of validationResults" class="validation-item" [ngClass]="v.resultado ? 'success' : 'error'">
+                  <mat-icon>{{ v.resultado ? 'check_circle' : 'error' }}</mat-icon>
+                  <div>
+                    <strong>{{ v.validacion | slice:0:30 }}...</strong>
+                    <span>{{ v.explicacion }}</span>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noValidations>
+                <p class="text-secondary text-center mt-3">Sube un documento para ver las validaciones.</p>
+              </ng-template>
+
+              <mat-expansion-panel class="mt-3" *ngIf="hasOcrDetails()">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon class="me-2">fact_check</mat-icon>
+                    Detalles OCR
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+              
+                <div class="ocr-details-wrapper">
+                  <div *ngFor="let doc of ocrDetails | keyvalue" class="document-section">
+                    <h4>{{ doc.key | titlecase }}</h4>
+                    <div class="ocr-details-container">
+                      <div *ngFor="let item of doc.value | keyvalue" class="ocr-detail-item">
+                        <span class="key">{{ $any(item.key) | titlecase }}</span>
+                        <span class="value">{{ item.value || 'No extraído' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-tab>
+            <mat-tab label="Listas">
+                <p class="text-secondary text-center mt-3">Validación contra listas en desarrollo.</p>
+            </mat-tab>
+            <mat-tab label="Consistencia">
+                <p class="text-secondary text-center mt-3">Análisis de consistencia en desarrollo.</p>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-stroked-button (click)="save()">Guardar</button>
+  <button mat-flat-button color="primary" (click)="save()">Guardar y crear expediente</button>
+</mat-dialog-actions>

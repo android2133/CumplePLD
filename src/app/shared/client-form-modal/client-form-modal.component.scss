@@ -1,0 +1,176 @@
+
+// --- Ajuste General del Layout ---
+// Asegura que las columnas del modal no se colapsen en una sola.
+:host ::ng-deep .mat-dialog-content {
+  .row {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.document-upload-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.drop-zone-small {
+  border: 1px solid var(--border-color);
+  border-left-width: 4px;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 70px; // Altura mínima para consistencia
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  .status-icon {
+    flex-shrink: 0; // Evita que el icono se encoja
+  }
+
+  .file-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; // Previene el desbordamiento
+  }
+
+  .document-label {
+    font-weight: 500;
+    color: var(--text-secondary-color);
+    font-size: 0.9rem;
+  }
+
+  .file-name {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Estado por defecto
+  &.status-idle {
+    border-left-color: var(--border-color);
+    .status-icon .mat-icon { color: var(--primary-color); }
+    &:hover {
+      border-color: var(--primary-color);
+      background-color: #f4f7f9;
+    }
+  }
+
+  // Estado de carga (Loading)
+  &.status-loading {
+    border-left-color: var(--accent-color);
+    color: var(--primary-color);
+    background-color: rgba(255, 193, 7, 0.1);
+    cursor: not-allowed;
+  }
+
+  // Estado de éxito (Success)
+  &.status-success {
+    border-left-color: var(--success-color);
+    color: #1a6c2c;
+    background-color: rgba(40, 167, 69, 0.1);
+    .status-icon .mat-icon { color: var(--success-color); }
+  }
+
+  // Estado de error (Error)
+  &.status-error {
+    border-left-color: var(--danger-color);
+    color: #a12331;
+    background-color: rgba(220, 53, 69, 0.1);
+    .status-icon .mat-icon { color: var(--danger-color); }
+  }
+}
+
+.validation-card {
+  height: 100%;
+}
+
+.validation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.validation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+
+  &.error { 
+    background-color: rgba(220, 53, 69, 0.1); 
+    .mat-icon { color: #dc3545; } 
+  }
+  &.success { 
+    background-color: rgba(40, 167, 69, 0.1); 
+    .mat-icon { color: #28a745; } 
+  }
+  div { 
+    display: flex; 
+    flex-direction: column; 
+  }
+}
+
+mat-dialog-actions {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.document-section {
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+    margin-bottom: 1rem;
+  }
+}
+
+.ocr-details-container {
+  padding-top: 1rem;
+}
+
+.ocr-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .key {
+    font-weight: 500;
+    color: var(--text-secondary-color);
+  }
+
+  .value {
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: right;
+  }
+}

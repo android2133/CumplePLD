@@ -1,0 +1,187 @@
+
+// --- Animación General para las Tarjetas ---
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-animated {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0; // Inicia invisible
+}
+
+
+// --- Cabecera de la Página ---
+.page-header {
+  margin-bottom: 2rem;
+  h1 { 
+    font-weight: 600; 
+    font-size: 2rem; 
+    color: var(--primary-color); 
+  }
+}
+
+
+/* --- Estilos para el Velocímetro (Gauge) --- */
+.gauge-container {
+  position: relative;
+  width: 250px;
+  height: 125px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* <-- AÑADE ESTA LÍNEA */
+}
+
+.gauge-background {
+  width: 100%;
+  height: 200%; /* Doble de alto para formar el círculo completo */
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  /* Gradiente cónico que crea los 3 colores */
+  background: conic-gradient(
+    from -90deg,
+    #28a745 0% 40%,    /* Verde hasta el 40% */
+    #ffc107 40% 70%,    /* Amarillo del 40% al 70% */
+    #dc3545 70% 100%    /* Rojo del 70% al 100% */
+  );
+  /* Máscara para crear el efecto de "dona" o arco */
+  mask-image: radial-gradient(circle at 50% 50%, transparent 60%, black 61%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 60%, black 61%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); /* Corta el semicírculo inferior */
+}
+
+@keyframes spin-needle {
+  from { transform: rotate(-90deg); }
+  to { transform: rotate(var(--gauge-angle)); }
+}
+
+.gauge-needle {
+  position: absolute;
+  width: 4px;
+  height: 90px;
+  background-color: var(--primary-color);
+  bottom: 0;
+  transform-origin: bottom center;
+  border-radius: 2px;
+  z-index: 3;
+  /* Animación */
+  animation: spin-needle 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Clases para los elementos superpuestos */
+.gauge-center-dot, .gauge-value, .gauge-label-start, .gauge-label-end {
+  position: absolute;
+  z-index: 4;
+}
+.gauge-center-dot {
+  width: 15px;
+  height: 15px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  bottom: -7.5px;
+}
+.gauge-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  top: 50%;
+}
+.gauge-label-start {
+  left: 10px;
+  bottom: 5px;
+  color: var(--text-secondary-color);
+}
+.gauge-label-end {
+  right: 10px;
+  bottom: 5px;
+  color: var(--text-secondary-color);
+}
+
+
+// --- Estilos para el Mapa de Calor - ANIMADO ---
+@keyframes cell-pop-in {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.heatmap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.heatmap-row {
+  display: flex;
+  align-items: center;
+}
+.heatmap-label {
+  width: 100px;
+  font-size: 0.9rem;
+}
+.heatmap-cells {
+  display: flex;
+  gap: 4px;
+}
+.heatmap-cell {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  opacity: 0; // Inicia invisible
+  animation: cell-pop-in 0.4s ease-out forwards;
+}
+
+/* Colores de las celdas del mapa de calor */
+.risk-level-1 { background-color: #d4edda; }
+.risk-level-2 { background-color: #fff3cd; }
+.risk-level-3 { background-color: #ffeeba; }
+.risk-level-4 { background-color: #ffc107; }
+.risk-level-5 { background-color: #f8d7da; }
+
+
+// --- Estilos para el Gráfico de Pastel - INTERACTIVO ---
+.pie-chart-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 2rem;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.05); // Efecto interactivo al pasar el mouse
+  }
+}
+.pie-chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  &.low { background-color: #28a745; }
+  &.moderate { background-color: #ffc107; }
+  &.high { background-color: #dc3545; }
+}
+
+
+// --- Estilos para la tarjeta de Matriz ---
+.config-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}

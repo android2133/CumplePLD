@@ -1,0 +1,30 @@
+<button mat-fab class="chat-fab" (click)="toggleChat()">
+  <mat-icon>{{ isChatOpen ? 'close' : 'chat' }}</mat-icon>
+</button>
+
+<div class="chat-window" *ngIf="isChatOpen">
+  <div class="chat-header">
+    <h3>CumplePLD IA – Asistente</h3>
+    <button mat-icon-button (click)="toggleChat()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  
+  <div class="chat-messages">
+    <div *ngFor="let message of messages" class="message" [ngClass]="'message-' + message.sender">
+      <div class="message-bubble">
+        {{ message.text }}
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Escribe un mensaje...</mat-label>
+      <input matInput [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>

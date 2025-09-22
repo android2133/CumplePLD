@@ -1,0 +1,41 @@
+<div class="login-container">
+  
+  <div class="gradient-background">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+  <mat-card class="login-card">
+    <mat-card-header>
+      <img src="assets/cumplepld.png" alt="CumplePLD Logo" class="login-logo">
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuario o correo electrónico</mat-label>
+          <input matInput required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" required>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="login()" mat-flat-button class="full-width btn-login">Entrar</button>
+
+      <div class="separator">o</div>
+
+      <button mat-stroked-button class="full-width btn-google">
+        <mat-icon svgIcon="google"></mat-icon>
+        Acceder con Google
+      </button>
+
+    </mat-card-actions>
+    <div class="login-footer">
+        <a href="#">Soporte CumplePLD</a>
+    </div>
+  </mat-card>
+
+</div>

@@ -1,0 +1,55 @@
+.page-header {
+  margin-bottom: 2rem;
+  h1 { font-weight: 600; font-size: 2rem; color: var(--primary-color); }
+}
+
+.tab-content {
+  padding: 2rem;
+}
+
+// Estilos de la tabla de usuarios
+table {
+  width: 100%;
+}
+th.mat-header-cell, td.mat-cell {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.mat-slide-toggle {
+  height: auto; // Arreglo para alineación vertical
+}
+
+// Estilos de Roles y Permisos
+.mat-list-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-left: 4px solid transparent;
+  &:hover {
+    background-color: #f4f7f9;
+  }
+}
+
+.active-role {
+  background-color: rgba(0, 51, 102, 0.1);
+  font-weight: 600;
+  color: var(--primary-color);
+  border-left-color: var(--primary-color);
+}
+
+.permissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.permission-item {
+  display: block; // Para que ocupe el espacio del grid
+}
+
+// Estilos de la Bitácora
+.log-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: var(--text-secondary-color);
+}

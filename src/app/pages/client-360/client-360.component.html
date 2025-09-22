@@ -1,0 +1,98 @@
+<div class="client-360-container container-fluid">
+    <div class="page-header">
+        <h1>Client 360</h1>
+        <p class="text-secondary">Vista consolidada del cliente y su actividad.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <mat-card class="mb-4 info-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="client-avatar">
+                        <mat-icon>account_circle</mat-icon>
+                    </div>
+                    <mat-card-title>{{ clientInfo.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ clientInfo.rfc }}</mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-chip-listbox class="card-status-chip">
+                    <mat-chip [ngClass]="{
+      'chip-success': clientInfo.status === 'Activo',
+      'chip-danger': clientInfo.status !== 'Activo'
+      }" selected>
+                        <mat-icon>{{ clientInfo.status === 'Activo' ? 'check_circle' : 'cancel' }}</mat-icon>
+                        {{ clientInfo.status }}
+                    </mat-chip>
+                </mat-chip-listbox>
+            </mat-card>
+
+            <mat-card class="mb-4">
+                <mat-card-title class="card-title-header">Documentos</mat-card-title>
+                <mat-list class="documents-list">
+                    <mat-list-item *ngFor="let doc of documents">
+                        <mat-icon matListItemIcon color="primary">folder</mat-icon>
+                        <div matListItemTitle>{{ doc.name }}</div>
+                        <div matListItemMeta>
+                            <span class="document-status" [ngClass]="getDocumentStatusClass(doc.status)">{{ doc.status
+                                }}</span>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card>
+
+            <mat-card>
+                <mat-card-title class="card-title-header">Score de Riesgo</mat-card-title>
+                <mat-card-content class="risk-score-content">
+                    <div class="risk-score-value">
+                        <span
+                            [style.color]="getRiskColor()=='warn' ? 'var(--danger-color)' : getRiskColor()=='accent' ? 'var(--accent-color)' : 'var(--primary-color)'">
+                            {{ clientInfo.riskScore }}
+                        </span> / 100
+                    </div>
+                    <mat-progress-bar mode="determinate" [value]="clientInfo.riskScore" [color]="getRiskColor()">
+                    </mat-progress-bar>
+                    <div class="risk-score-labels">
+                        <span>Bajo</span>
+                        <span>Moderado</span>
+                        <span>Alto</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="col-lg-7">
+            <mat-card class="mb-4">
+                <mat-card-title class="card-title-header">Alertas Vinculadas</mat-card-title>
+                <mat-list>
+                    <mat-list-item *ngFor="let alert of linkedAlerts" class="alert-item">
+                        <mat-icon matListItemIcon class="alert-icon">notification_important</mat-icon>
+                        <div matListItemTitle><strong>Alerta {{ alert.id }}</strong></div>
+                        <div matListItemLine>{{ alert.description }}</div>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card>
+
+            <mat-card>
+                <mat-card-title class="card-title-header">Historial de Transacciones Recientes</mat-card-title>
+                <div class="table-responsive">
+                    <table class="table transaction-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Descripción</th>
+                                <th class="text-end">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tx of transactionHistory">
+                                <td>{{ tx.date | date:'dd/MM/yyyy' }}</td>
+                                <td>{{ tx.description }}</td>
+                                <td class="text-end amount">{{ tx.amount | currency:'MXN' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+<div class="pld-engine-container container-fluid">
+  <div class="page-header">
+    <h1>PLD Engine</h1>
+    <p class="text-secondary">Monitor de transacciones y motor de alertas.</p>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-3">
+      <mat-card class="filter-card">
+        <mat-card-header>
+          <mat-card-title>Filtros de Búsqueda</mat-card-title>
+        </mat-card-header>
+        <mat-card-content [formGroup]="filterForm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Fecha</mat-label>
+            <mat-date-range-input [formGroup]="filterForm" [rangePicker]="picker">
+              <input matStartDate formControlName="fechaInicio" placeholder="Desde">
+              <input matEndDate formControlName="fechaFin" placeholder="Hasta">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Cliente / RFC</mat-label>
+            <input matInput formControlName="cliente" placeholder="Buscar por nombre o RFC">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Tipo de Operación</mat-label>
+            <mat-select formControlName="tipoOperacion">
+              <mat-option value="donativo">Donativo</mat-option>
+              <mat-option value="rifa">Compra Boletos Rifa</mat-option>
+              <mat-option value="colegiatura">Colegiatura</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Monto Mín.</mat-label>
+                <input matInput formControlName="montoMin" type="number" placeholder="500">
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Monto Máx.</mat-label>
+                <input matInput formControlName="montoMax" type="number" placeholder="100000">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-button (click)="clearFilters()">Limpiar</button>
+          <button mat-flat-button color="primary" (click)="applyFilter()">Buscar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-card class="metric-card-mini">
+            <h3>{{ monitoredTransactions | number }}</h3>
+            <p>transacciones monitoreadas hoy</p>
+          </mat-card>
+        </div>
+        <div class="col-sm-6">
+          <mat-card class="metric-card-mini">
+            <h3>{{ suspiciousPercentage }}%</h3>
+            <p>de transacciones sospechosas</p>
+          </mat-card>
+        </div>
+      </div>
+      
+      <mat-card class="transactions-table-card">
+        <div class="table-container">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+            <ng-container matColumnDef="fecha">
+              <th mat-header-cell *matHeaderCellDef> Fecha </th>
+              <td mat-cell *matCellDef="let el"> {{ el.fecha | date: 'MMM dd, yyyy' }} </td>
+            </ng-container>
+            <ng-container matColumnDef="cliente">
+              <th mat-header-cell *matHeaderCellDef> Cliente </th>
+              <td mat-cell *matCellDef="let el"> {{ el.cliente }} </td>
+            </ng-container>
+            <ng-container matColumnDef="operacion">
+              <th mat-header-cell *matHeaderCellDef> Operación </th>
+              <td mat-cell *matCellDef="let el"> {{ el.operacion }} </td>
+            </ng-container>
+            <ng-container matColumnDef="monto">
+              <th mat-header-cell *matHeaderCellDef> Monto </th>
+              <td mat-cell *matCellDef="let el"> {{ el.monto | currency:'MXN' }} </td>
+            </ng-container>
+             <ng-container matColumnDef="origenAlerta">
+              <th mat-header-cell *matHeaderCellDef> Origen Alerta </th>
+              <td mat-cell *matCellDef="let el">
+                <mat-icon *ngIf="el.origenAlerta" [matTooltip]="el.origenAlerta | titlecase" class="alert-icon">{{ el.origenAlerta === 'umbral' ? 'warning' : 'info' }}</mat-icon>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'suspicious-row': row.estado === 'Sospechosa'}" (click)="openAlertDetail(row)"></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3">
+      <mat-card class="mb-4">
+        <mat-card-header>
+          <mat-card-title>Reglas de Negocio</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let rule of businessRules">{{ rule }}</li>
+          </ul>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="primary" class="w-100">Configurar Reglas</button>
+        </mat-card-actions>
+      </mat-card>
+      
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Avisos a la Autoridad</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let report of authorityReports">
+              {{ report.name }}
+              <span class="badge" [ngClass]="{'bg-success': report.status === 'Listo', 'bg-warning': report.status === 'Pendiente'}">{{ report.status }}</span>
+            </li>
+          </ul>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button color="primary" class="w-100">Generar Archivo</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

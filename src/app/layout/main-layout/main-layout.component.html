@@ -1,0 +1,10 @@
+<div class="main-container">
+  <app-sidebar [isMinimized]="isSidebarMinimized"></app-sidebar>
+  <div class="main-content" [class.expanded]="isSidebarMinimized">
+    <app-header (sidebarToggle)="toggleSidebar()"></app-header>
+    <main class="content-area">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+<app-chat-assistant></app-chat-assistant>

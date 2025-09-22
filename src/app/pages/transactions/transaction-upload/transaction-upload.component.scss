@@ -1,0 +1,125 @@
+
+// --- Estilo de Cabecera del Modal ---
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 24px;
+
+  h2 {
+    margin: 0;
+    padding: 1rem 0;
+    font-size: 1.25rem; // Tamaño de título consistente
+  }
+}
+
+// Contenedor principal del modal
+mat-dialog-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+// --- Columna Derecha: Zona de Carga ---
+.drop-zone {
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-secondary-color);
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  // Estilo al arrastrar un archivo sobre el panel
+  &.file-over {
+    border-color: var(--primary-color);
+    background-color: rgba(0, 51, 102, 0.05);
+    transform: scale(1.02);
+  }
+
+  // Estilo cuando ya se ha seleccionado un archivo
+  &.has-file {
+    border-style: solid;
+    border-color: var(--success-color);
+    background-color: rgba(40, 167, 69, 0.05);
+  }
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.5rem;
+  }
+
+  .file-icon {
+    color: var(--success-color);
+  }
+}
+
+// --- Sección de Previsualización ---
+.preview-section {
+  h5 {
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  .table-container {
+    max-height: 200px;
+    overflow: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+  }
+  table {
+    width: 100%;
+  }
+}
+
+// --- Columna Izquierda: Lista de Conexiones ---
+.source-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  .mat-chip {
+    color: white;
+    font-weight: 500;
+  }
+  .bg-success { background-color: var(--success-color) !important; }
+  .bg-warning { background-color: var(--accent-color) !important; color: var(--primary-color) !important; }
+  .bg-secondary { background-color: var(--text-secondary-color) !important; }
+}
+
+// --- Pie de Página (Acciones) ---
+mat-dialog-actions {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  position: relative;
+  display: block; 
+  text-align: right; 
+}
+
+.status-text-container {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.status-text {
+  font-weight: 500;
+  color: var(--primary-color);
+
+  &.success {
+    color: var(--success-color);
+  }
+}

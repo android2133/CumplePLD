@@ -1,0 +1,20 @@
+<nav class="sidebar" [class.minimized]="isMinimized">
+    <div style="background-color: rgb(238, 238, 238);" class="sidebar-header">
+        <img src="assets/cumplepld.png" alt="CumplePLD Logo" class="logo">
+        <!-- <span *ngIf="!isMinimized" class="logo-text">CumplePLD</span> -->
+    </div>
+    <ul class="nav-list">
+        <li *ngFor="let item of navItems">
+            <a [routerLink]="item.link" routerLinkActive="active-link">
+                <mat-icon>{{ item.icon }}</mat-icon>
+                <span class="nav-text" *ngIf="!isMinimized">{{ item.text }}</span>
+            </a>
+        </li>
+    </ul>
+    <div class="sidebar-footer">
+        <a routerLink="/logout">
+            <mat-icon>logout</mat-icon>
+            <span class="nav-text" *ngIf="!isMinimized">Cerrar Sesión</span>
+        </a>
+    </div>
+</nav>

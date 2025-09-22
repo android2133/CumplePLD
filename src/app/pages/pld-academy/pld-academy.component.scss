@@ -1,0 +1,97 @@
+
+.page-header {
+  margin-bottom: 2rem;
+  h1 { font-weight: 600; font-size: 2rem; color: var(--primary-color); }
+}
+
+// NUEVO: Estilos para la fila de títulos
+.section-titles {
+  margin-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0;
+  }
+}
+
+.metric-card {
+  text-align: center;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+  }
+  p {
+    color: var(--text-secondary-color);
+    margin: 0;
+  }
+}
+
+.staff-table-card {
+  padding: 0 0 1rem 0 !important; // Añadir padding inferior para el botón
+  .table-container {
+    max-height: 500px;
+    overflow: auto;
+  }
+  table {
+    width: 100%;
+  }
+  th.mat-header-cell {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+  }
+}
+
+// NUEVO: Estilos de chip con colores claros y texto oscuro
+.mat-chip {
+  font-weight: 600;
+  padding: 8px 12px;
+}
+.chip-success { 
+  background-color: rgba(40, 167, 69, 0.15) !important;
+  color: #1a6c2c !important;
+}
+.chip-info { 
+  background-color: rgba(0, 51, 102, 0.15) !important;
+  color: #002142 !important;
+}
+.chip-secondary { 
+  background-color: rgba(108, 117, 125, 0.15) !important;
+  color: #44494e !important;
+}
+
+.progress-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  mat-progress-bar {
+    width: 100px;
+  }
+}
+
+.courses-title {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.course-card {
+  margin-bottom: 1.5rem;
+  .mat-card-avatar {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: var(--secondary-color);
+  }
+  p {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+  }
+}

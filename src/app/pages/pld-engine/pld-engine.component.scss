@@ -1,0 +1,84 @@
+.page-header {
+  margin-bottom: 2rem;
+  h1 {
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--primary-color);
+  }
+}
+
+.filter-card mat-card-actions {
+  padding: 1rem !important;
+}
+
+.metric-card-mini {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  
+  h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+  }
+
+  p {
+    color: var(--text-secondary-color);
+    margin: 0;
+  }
+}
+
+.transactions-table-card {
+  padding: 0 !important;
+
+  .table-container {
+    max-height: 500px;
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th.mat-header-cell {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+  }
+
+  .suspicious-row {
+    background-color: #fff3f3 !important; // Rojo muy claro
+    font-weight: 500;
+    
+    &:hover {
+        background-color: #ffeaea !important;
+    }
+  }
+
+  .alert-icon {
+    color: var(--accent-color);
+  }
+}
+
+// Estilos para las tarjetas de la derecha
+.list-group-item {
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+}
+
+mat-card-actions button {
+    margin: 0.5rem;
+}
+
+
+// ... (estilos existentes) ...
+.suspicious-row {
+  background-color: #fff3f3 !important;
+  font-weight: 500;
+  cursor: pointer; // <-- AÑADIR ESTA LÍNEA
+  
+  &:hover {
+      background-color: #ffeaea !important;
+  }
+}

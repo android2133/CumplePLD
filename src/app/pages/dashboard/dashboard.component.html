@@ -1,0 +1,73 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Dashboard de Cumplimiento</h1>
+    <p class="text-secondary">Resumen del estado operativo y de riesgos.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-3 col-md-6 mb-4" *ngFor="let card of metricCards">
+      <mat-card class="metric-card h-100">
+        <mat-card-content class="d-flex justify-content-between align-items-center">
+          <div>
+            <h2 class="metric-value" [ngClass]="card.colorClass">{{ card.value }}</h2>
+            <p class="metric-title">{{ card.title }}</p>
+          </div>
+          <div class="metric-icon-wrapper" [ngClass]="card.colorClass + '-bg'">
+            <mat-icon class="metric-icon">{{ card.icon }}</mat-icon>
+            <mat-icon *ngIf="card.trend === 'up'" class="trend-icon up">arrow_upward</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 mb-4">
+      
+
+        <div class="row">
+            <div class="col-md-6 mb-4" *ngFor="let card of navCards">
+            <mat-card class="nav-card h-100" [routerLink]="card.link">
+                <div class="nav-card-content">
+                <mat-icon class="nav-card-icon">{{ card.icon }}</mat-icon>
+                <div class="nav-card-text">
+                    <h3 class="nav-card-title">{{ card.title }}</h3>
+                    <p class="nav-card-description">{{ card.description }}</p>
+                </div>
+                <mat-icon class="nav-card-arrow">arrow_forward</mat-icon>
+                </div>
+            </mat-card>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <mat-card class="h-100">
+        <mat-card-header>
+          <mat-card-title>Estado de Reportes Regulatorios</mat-card-title>
+          <mat-card-subtitle>Últimos 90 días</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Enviados
+              <span class="badge bg-primary rounded-pill">{{ regulatoryReports.sent }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Con Acuse
+              <span class="badge bg-success rounded-pill">{{ regulatoryReports.acknowledged }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Pendientes
+              <span class="badge bg-warning rounded-pill">{{ regulatoryReports.pending }}</span>
+            </li>
+          </ul>
+        </mat-card-content>
+        <mat-card-actions class="p-3">
+          <button mat-flat-button color="primary" class="w-100">Generar Nuevo Reporte</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

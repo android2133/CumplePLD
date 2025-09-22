@@ -1,0 +1,207 @@
+/* --- 1. Variables --- */
+:host {
+  // Valores iniciales para las variables del mouse que se actualizan con TypeScript
+  --mouse-x: 0;
+  --mouse-y: 0;
+  
+  --primary-color: #005bea;
+  --background-dark: #14145f;
+}
+
+/* --- 2. Contenedor Principal --- */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--background-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- 3. El Fondo Animado con Movimiento Orgánico --- */
+.gradient-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  // El filtro de difuminado se aplica aquí
+  filter: blur(120px);
+  // La reacción al mouse se aplica al contenedor principal del blob
+  transform: translate(calc(var(--mouse-x) * -50px), calc(var(--mouse-y) * -70px));
+  transition: transform 1s ease-out; // Hacemos la reacción al mouse más suave
+}
+
+// Usamos un pseudo-elemento ::before para manejar la animación de flotación.
+// Esto evita el conflicto con el 'transform' del mouse.
+.blob::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  // La animación de flotación se aplica aquí
+  animation: float 15s infinite ease-in-out;
+}
+
+
+/* --- NUEVA ANIMACIÓN ORGÁNICA --- */
+@keyframes float {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  25% {
+    transform: translate(40px, -60px) scale(1.1);
+  }
+  50% {
+    transform: translate(-30px, 50px) scale(0.9);
+  }
+  75% {
+    transform: translate(50px, 20px) scale(1.05);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+// Colores y variaciones de animación para cada blob
+.blob1 {
+  width: 450px; height: 450px; top: -150px; left: -150px;
+  
+  &::before {
+    background-color: #ff8c00; // Naranja
+    animation-duration: 15s;
+  }
+}
+
+.blob2 {
+  width: 350px; height: 350px; bottom: -100px; right: -100px;
+  // Modificamos ligeramente la reacción al mouse para cada blob
+  transform: translate(calc(var(--mouse-x) * 40px), calc(var(--mouse-y) * 60px));
+
+  &::before {
+    background-color: #005bea; // Azul
+    animation-duration: 20s;
+    animation-delay: -5s; // Desfase para que no se muevan a la vez
+  }
+}
+
+.blob3 {
+  width: 300px; height: 300px; top: 50%; left: 50%;
+  transform: translate(calc(var(--mouse-x) * 20px - 50%), calc(var(--mouse-y) * -30px - 50%));
+
+  &::before {
+    background-color: #00ff87; // Verde
+    animation-duration: 25s;
+    animation-delay: -10s;
+  }
+}
+
+/* --- 4. Tarjeta de Login y Botones (Sin cambios) --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1rem !important;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #eee;
+  }
+  &:not(:empty)::before { margin-right: .5em; }
+  &:not(:empty)::after { margin-left: .5em; }
+}
+
+.btn-login {
+  padding: 14px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border: none;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 91, 234, 0.4);
+  }
+}
+
+.btn-google {
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555 !important;
+  border-color: #ddd !important;
+  transition: all 0.3s ease;
+
+  mat-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.75rem;
+  }
+
+  &:hover {
+    background-color: #f9f9f9 !important;
+    border-color: #ccc !important;
+  }
+}
+
+.login-logo {
+  height: 50px;
+  margin-bottom: 2rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.login-footer {
+  margin-top: 2rem;
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

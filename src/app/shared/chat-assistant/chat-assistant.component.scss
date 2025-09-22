@@ -1,0 +1,93 @@
+:host {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1050;
+}
+
+.chat-fab {
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.chat-window {
+  width: 370px;
+  max-height: 500px;
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: absolute;
+  bottom: calc(100% + 1rem); // Encima del botón
+  right: 0;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+
+  h3 {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.message {
+  display: flex;
+  width: 100%;
+}
+
+.message-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  max-width: 80%;
+  font-size: 0.95rem;
+}
+
+.message-user {
+  justify-content: flex-end;
+  .message-bubble {
+    background-color: var(--secondary-color);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.message-assistant {
+  justify-content: flex-start;
+  .message-bubble {
+    background-color: var(--background-color);
+    color: var(--text-primary-color);
+    border-bottom-left-radius: 4px;
+  }
+}
+
+.chat-input {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .mat-form-field {
+    // Truco para quitar el espacio extra de abajo
+    padding-bottom: 1.34375em;
+  }
+}

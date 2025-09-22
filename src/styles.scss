@@ -1,0 +1,69 @@
+/* Global Styles */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Paleta de Colores Profesional
+:root {
+    --primary-color: #003366; // Azul corporativo oscuro
+    --secondary-color: #00a89d; // Verde azulado para acentos y acciones
+    --accent-color: #f2b705; // Amarillo/Oro para alertas y notificaciones
+    --background-color: #f4f7f9; // Gris muy claro para fondos de página
+    --surface-color: #ffffff; // Blanco para tarjetas y superficies
+    --text-primary-color: #333333; // Gris oscuro para texto principal
+    --text-secondary-color: #6c757d; // Gris para texto secundario
+    --border-color: #dee2e6;
+    --danger-color: #d9534f;
+    --success-color: #5cb85c;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary-color);
+}
+
+.card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
