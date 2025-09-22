@@ -5,11 +5,13 @@
   </div>
 
   <div class="row">
-    <div class="col-xl-3 col-md-6 mb-4" *ngFor="let card of metricCards">
+    <div *ngFor="let card of displayMetricCards; let i = index" class="col-xl-3 col-md-6 mb-4 card-animated"
+      [style.animation-delay]="i * 100 + 'ms'">
+
       <mat-card class="metric-card h-100">
         <mat-card-content class="d-flex justify-content-between align-items-center">
           <div>
-            <h2 class="metric-value" [ngClass]="card.colorClass">{{ card.value }}</h2>
+            <h2 class="metric-value" [ngClass]="card.colorClass">{{ card.displayValue | number }}</h2>
             <p class="metric-title">{{ card.title }}</p>
           </div>
           <div class="metric-icon-wrapper" [ngClass]="card.colorClass + '-bg'">
@@ -23,22 +25,22 @@
 
   <div class="row">
     <div class="col-lg-8 mb-4">
-      
 
-        <div class="row">
-            <div class="col-md-6 mb-4" *ngFor="let card of navCards">
-            <mat-card class="nav-card h-100" [routerLink]="card.link">
-                <div class="nav-card-content">
-                <mat-icon class="nav-card-icon">{{ card.icon }}</mat-icon>
-                <div class="nav-card-text">
-                    <h3 class="nav-card-title">{{ card.title }}</h3>
-                    <p class="nav-card-description">{{ card.description }}</p>
-                </div>
-                <mat-icon class="nav-card-arrow">arrow_forward</mat-icon>
-                </div>
-            </mat-card>
+
+      <div class="row">
+        <div class="col-md-6 mb-4" *ngFor="let card of navCards">
+          <mat-card class="nav-card h-100" [routerLink]="card.link">
+            <div class="nav-card-content">
+              <mat-icon class="nav-card-icon">{{ card.icon }}</mat-icon>
+              <div class="nav-card-text">
+                <h3 class="nav-card-title">{{ card.title }}</h3>
+                <p class="nav-card-description">{{ card.description }}</p>
+              </div>
+              <mat-icon class="nav-card-arrow">arrow_forward</mat-icon>
             </div>
+          </mat-card>
         </div>
+      </div>
 
     </div>
 
@@ -65,9 +67,19 @@
           </ul>
         </mat-card-content>
         <mat-card-actions class="p-3">
-          <button mat-flat-button color="primary" class="w-100">Generar Nuevo Reporte</button>
+          <button mat-flat-button color="primary" class="w-100" (click)="generateProfessionalReport()">Generar Nuevo
+            Reporte</button>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
+</div>
+
+
+<div class="pdf-template-container" *ngIf="showProfessionalReport">
+  <app-professional-report-template 
+    id="professional-report"
+    [metrics]="reportMetrics"
+    [highRiskClients]="highRiskClients">
+  </app-professional-report-template>
 </div>

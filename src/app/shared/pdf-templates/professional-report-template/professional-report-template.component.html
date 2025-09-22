@@ -1,0 +1,63 @@
+<div class="report-container">
+  <header class="report-header">
+    <img src="assets/cumplepld-logo-dark.svg" alt="CumplePLD Logo" class="logo-main">
+    <div class="header-logos-secondary">
+      <img src="assets/deloitte-logo.svg" alt="Deloitte Logo" class="logo-secondary">
+      <img src="assets/ies-logo.svg" alt="IES Systems Logo" class="logo-secondary">
+    </div>
+  </header>
+
+  <div class="report-title-section">
+    <h1>Reporte Ejecutivo de Cumplimiento PLD</h1>
+    <p>Generado el: {{ currentDate | date:'fullDate' }}</p>
+  </div>
+
+  <main class="report-content">
+    <section class="metrics-summary">
+      <h2>Resumen de Métricas Clave</h2>
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <span class="value">{{ metrics.clients | number }}</span>
+          <span class="label">Clientes Activos</span>
+        </div>
+        <div class="metric-item">
+          <span class="value high-risk">{{ metrics.highRisk | number }}</span>
+          <span class="label">Clientes en Riesgo Alto</span>
+        </div>
+        <div class="metric-item">
+          <span class="value warning">{{ metrics.alerts | number }}</span>
+          <span class="label">Alertas Activas</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Detalle de Clientes de Alto Riesgo</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>RFC</th>
+            <th>Score de Riesgo</th>
+            <th>Fecha de Alta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of highRiskClients">
+            <td>{{ client.nombre }}</td>
+            <td>{{ client.rfc }}</td>
+            <td><span class="risk-pill">{{ client.riskScore }}</span></td>
+            <td>{{ client.date | date:'dd/MM/yyyy' }}</td>
+          </tr>
+          <tr *ngIf="highRiskClients.length === 0">
+            <td colspan="4" class="text-center">No hay clientes de alto riesgo que reportar.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="report-footer">
+    <p>Documento confidencial generado por CumplePLD. Prohibida su distribución no autorizada.</p>
+  </footer>
+</div>
