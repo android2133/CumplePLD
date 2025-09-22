@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>Configurar Matriz de Riesgo</h2>
+  <button mat-icon-button (click)="close()"><mat-icon>close</mat-icon></button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <p>Ajusta el peso (ponderación) de cada variable para el cálculo del score de riesgo.</p>
+  <table mat-table [dataSource]="riskVariables" class="mat-elevation-z4">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Variable de Riesgo </th>
+      <td mat-cell *matCellDef="let v"> {{v.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Ponderación (%) </th>
+      <td mat-cell *matCellDef="let v">
+        <mat-slider min="0" max="100" step="5" discrete class="w-100">
+          <input matSliderThumb [(ngModel)]="v.weight">
+        </mat-slider>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Valor </th>
+      <td mat-cell *matCellDef="let v"> <strong>{{v.weight}}%</strong> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-flat-button color="primary">Guardar Cambios</button>
+</mat-dialog-actions>

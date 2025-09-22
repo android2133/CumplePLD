@@ -1,0 +1,13 @@
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+.course-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+  color: var(--secondary-color);
+  margin: 1rem 0;
+}

@@ -1,187 +1,208 @@
 
-// --- Animación General para las Tarjetas ---
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.card-animated {
-  animation: fadeInUp 0.6s ease-out forwards;
-  opacity: 0; // Inicia invisible
-}
 
 
-// --- Cabecera de la Página ---
-.page-header {
-  margin-bottom: 2rem;
-  h1 { 
-    font-weight: 600; 
-    font-size: 2rem; 
-    color: var(--primary-color); 
-  }
-}
+// --- Animación y Cabecera (sin cambios) ---
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.card-animated { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+.page-header { margin-bottom: 2rem; h1 { font-weight: 600; font-size: 2rem; color: var(--primary-color); } }
 
-
-/* --- Estilos para el Velocímetro (Gauge) --- */
+// --- WIDGET: CALIFICACIÓN DE RIESGO (DISEÑO SVG) ---
 .gauge-container {
   position: relative;
   width: 250px;
-  height: 125px; 
+  height: 125px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0; /* <-- AÑADE ESTA LÍNEA */
 }
-
-.gauge-background {
+.gauge-svg {
   width: 100%;
-  height: 200%; /* Doble de alto para formar el círculo completo */
-  border-radius: 50%;
+  height: 100%;
+  // transform: rotateX(180deg); // Voltea el SVG para que el arco se dibuje hacia arriba
+}
+.gauge-background-arc, .gauge-value-arc {
+  fill: none;
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+.gauge-background-arc {
+  stroke: #f4f7f9; // Color de fondo del arco
+}
+.gauge-value-arc {
+  stroke: var(--stroke-color); // El color viene del TS
+  stroke-dasharray: 157; // Longitud del arco (π * 50)
+  stroke-dashoffset: var(--dash-offset); // El valor viene del TS
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.gauge-text {
   position: absolute;
-  top: 0;
-  /* Gradiente cónico que crea los 3 colores */
-  background: conic-gradient(
-    from -90deg,
-    #28a745 0% 40%,    /* Verde hasta el 40% */
-    #ffc107 40% 70%,    /* Amarillo del 40% al 70% */
-    #dc3545 70% 100%    /* Rojo del 70% al 100% */
-  );
-  /* Máscara para crear el efecto de "dona" o arco */
-  mask-image: radial-gradient(circle at 50% 50%, transparent 60%, black 61%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 60%, black 61%);
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); /* Corta el semicírculo inferior */
-}
-
-@keyframes spin-needle {
-  from { transform: rotate(-90deg); }
-  to { transform: rotate(var(--gauge-angle)); }
-}
-
-.gauge-needle {
-  position: absolute;
-  width: 4px;
-  height: 90px;
-  background-color: var(--primary-color);
-  bottom: 0;
-  transform-origin: bottom center;
-  border-radius: 2px;
-  z-index: 3;
-  /* Animación */
-  animation: spin-needle 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-/* Clases para los elementos superpuestos */
-.gauge-center-dot, .gauge-value, .gauge-label-start, .gauge-label-end {
-  position: absolute;
-  z-index: 4;
-}
-.gauge-center-dot {
-  width: 15px;
-  height: 15px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  bottom: -7.5px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 .gauge-value {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: var(--primary-color);
-  top: 50%;
 }
-.gauge-label-start {
-  left: 10px;
-  bottom: 5px;
+.gauge-label {
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--text-secondary-color);
-}
-.gauge-label-end {
-  right: 10px;
-  bottom: 5px;
-  color: var(--text-secondary-color);
+  margin-top: -0.5rem;
 }
 
-
-// --- Estilos para el Mapa de Calor - ANIMADO ---
-@keyframes cell-pop-in {
-  from { opacity: 0; transform: scale(0.5); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.heatmap-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.heatmap-row {
-  display: flex;
-  align-items: center;
-}
-.heatmap-label {
-  width: 100px;
-  font-size: 0.9rem;
-}
-.heatmap-cells {
-  display: flex;
-  gap: 4px;
-}
+// --- WIDGET: MAPA DE CALOR (DISEÑO MEJORADO) ---
+@keyframes cell-pop-in { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+.heatmap-container { display: flex; flex-direction: column; gap: 0.75rem; padding: 0.5rem; }
+.heatmap-row { display: flex; align-items: center; }
+.heatmap-label { width: 120px; font-size: 1rem; font-weight: 500; }
+.heatmap-cells { display: flex; gap: 5px; }
 .heatmap-cell {
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
-  opacity: 0; // Inicia invisible
+  width: 35px;
+  height: 35px;
+  border-radius: 6px;
+  opacity: 0;
   animation: cell-pop-in 0.4s ease-out forwards;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  &:hover { transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 }
+.risk-level-1 { background-color: #eaf6ff; }
+.risk-level-2 { background-color: #d4edff; }
+.risk-level-3 { background-color: #ffeed4; }
+.risk-level-4 { background-color: #ffe0b3; }
+.risk-level-5 { background-color: #ffd4d7; }
 
-/* Colores de las celdas del mapa de calor */
-.risk-level-1 { background-color: #d4edda; }
-.risk-level-2 { background-color: #fff3cd; }
-.risk-level-3 { background-color: #ffeeba; }
-.risk-level-4 { background-color: #ffc107; }
-.risk-level-5 { background-color: #f8d7da; }
-
-
-// --- Estilos para el Gráfico de Pastel - INTERACTIVO ---
+// --- WIDGET: DISTRIBUCIÓN DE CLIENTES (DISEÑO MEJORADO) ---
 .pie-chart-container {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  margin-right: 2rem;
+  margin-right: 2.5rem;
   transition: transform 0.3s ease;
-  &:hover {
-    transform: scale(1.05); // Efecto interactivo al pasar el mouse
-  }
+  border: 10px solid var(--background-color);
+  box-shadow: 0 0 15px rgba(0,0,0,0.1) inset;
+  &:hover { transform: scale(1.05); }
 }
-.pie-chart-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-}
+.pie-chart-legend { display: flex; flex-direction: column; gap: 0.75rem; }
+.legend-item { display: flex; align-items: center; font-size: 1rem; }
 .legend-color {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
   &.low { background-color: #28a745; }
   &.moderate { background-color: #ffc107; }
   &.high { background-color: #dc3545; }
 }
 
+// --- WIDGET: MATRIZ DE RIESGO ---
+.config-icon { font-size: 52px; width: 52px; height: 52px; color: var(--primary-color); margin-bottom: 1rem; }
 
-// --- Estilos para la tarjeta de Matriz ---
-.config-icon {
-  font-size: 48px;
-  width: 48px;
-  height: 48px;
+
+
+/* --- WIDGET: CALIFICACIÓN DE RIESGO (DISEÑO VELOCÍMETRO) --- */
+.gauge-container {
+  position: relative;
+  width: 280px;  // Un poco más grande para las etiquetas
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: 100%;
+}
+
+// Estilo base para todos los arcos
+.gauge-background-arc, .gauge-color-arc {
+  fill: none;
+  stroke-width: 22; // Un poco más grueso
+  stroke-linecap: butt; // Bordes rectos para que encajen
+}
+
+// Arco gris de fondo completo
+.gauge-background-arc {
+  stroke: #f4f7f9;
+}
+
+// Arcos de colores específicos
+.gauge-color-arc {
+  &.low { stroke: #28a745; }
+  &.moderate { stroke: #ffc107; }
+  &.high { stroke: #dc3545; }
+}
+
+// Contenedor que rota la aguja
+.gauge-needle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: 50% 93%; // Punto de rotación en la base
+}
+
+// Estilo de la aguja
+.gauge-needle {
+  width: 6px;
+  height: 55%;
+  background-color: #343a40;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+// Círculo central (pivote)
+.gauge-pivot {
+  position: absolute;
+  bottom: 5px;
+  width: 20px;
+  height: 20px;
+  background-color: #343a40;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+// Valor numérico y etiqueta de nivel (Bajo, Alto, etc.)
+.gauge-text {
+  position: absolute;
+  top: 75%; // Más abajo para dar espacio
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.gauge-value {
+  font-size: 3rem;
+  font-weight: 700;
   color: var(--primary-color);
-  margin-bottom: 1rem;
+}
+.gauge-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary-color);
+  margin-top: -0.5rem;
+}
+
+// Etiquetas "Bajo" y "Alto" en los extremos
+.gauge-range-labels {
+  position: absolute;
+  width: 100%;
+  bottom: -20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 15px 0px 15px; // Espaciado
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary-color);
 }

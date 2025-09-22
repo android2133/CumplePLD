@@ -1,0 +1,44 @@
+<div class="report-container">
+  <header class="report-header">
+    <img src="assets/cumplepld-logo-dark.svg" alt="CumplePLD Logo" class="logo-main">
+    <div class="header-logos-secondary">
+      <img src="assets/deloitte-logo.svg" alt="Deloitte Logo" class="logo-secondary">
+      <img src="assets/ies-logo.svg" alt="IES Systems Logo" class="logo-secondary">
+    </div>
+  </header>
+
+  <div class="report-title-section">
+    <h1>Reporte de Operaciones Inusuales (UIF)</h1>
+    <p>Folio: REP-{{ currentDate | date:'yyyyMMdd-HHmmss' }}</p>
+  </div>
+
+  <main class="report-content">
+    <section>
+      <h2>Detalle de Transacciones Sospechosas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Operación</th>
+            <th>Monto</th>
+            <th>Motivo de Alerta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of suspiciousTransactions">
+            <td>{{ tx.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ tx.cliente }}</td>
+            <td>{{ tx.operacion }}</td>
+            <td>{{ tx.monto | currency:'MXN' }}</td>
+            <td>{{ tx.coincidencias.join(', ') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="report-footer">
+    <p>Documento generado para ser presentado ante la Unidad de Inteligencia Financiera (UIF).</p>
+  </footer>
+</div>

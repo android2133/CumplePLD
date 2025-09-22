@@ -1,0 +1,85 @@
+// --- ESTILOS GENERALES DEL REPORTE ---
+:host {
+  // Usamos una fuente más moderna y profesional
+  font-family: 'Poppins', sans-serif, Arial;
+  color: #333;
+}
+
+.report-container {
+  width: 794px; // Ancho estándar para A4
+  padding: 50px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+}
+
+// --- ENCABEZADO ---
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+  .logo-main {
+    height: 45px;
+  }
+}
+
+// --- TÍTULO ---
+.report-title-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #003366; // Color primario
+
+  h1 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #003366;
+    margin: 0;
+  }
+  p {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+// --- SECCIÓN DE TABLA ---
+section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #003366;
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  thead th {
+    background-color: #003366;
+    color: white;
+    font-weight: 600;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: #f9fafb;
+  }
+}
+
+// --- PIE DE PÁGINA ---
+.report-footer {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1rem;
+}

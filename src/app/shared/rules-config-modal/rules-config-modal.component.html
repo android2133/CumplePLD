@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>Configurar Reglas de Negocio</h2>
+  <button mat-icon-button (click)="close()"><mat-icon>close</mat-icon></button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <mat-list>
+    <mat-list-item *ngFor="let rule of rules; let i = index">
+      <mat-icon matListItemIcon>rule</mat-icon>
+      <div matListItemTitle>{{ rule }}</div>
+      <div matListItemMeta>
+        <button mat-icon-button color="warn" (click)="deleteRule(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+  <form [formGroup]="newRuleForm" (ngSubmit)="addRule()" class="add-rule-form">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nueva Regla</mat-label>
+      <input matInput formControlName="ruleText" placeholder="Ej: Compras > $50,000 MXN">
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit" [disabled]="newRuleForm.invalid">Agregar</button>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="save()">Guardar Cambios</button>
+</mat-dialog-actions>

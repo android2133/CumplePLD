@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <button mat-icon-button (click)="close()"><mat-icon>close</mat-icon></button>
+</div>
+<mat-dialog-content class="mat-typography text-center">
+  <mat-icon class="course-icon">play_circle_filled</mat-icon>
+  <p>Estás a punto de iniciar el curso. Una vez iniciado, tu progreso será guardado.</p>
+  <p><strong>¿Deseas continuar?</strong></p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="close()">Sí, iniciar curso</button>
+</mat-dialog-actions>

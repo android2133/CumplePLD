@@ -3,21 +3,35 @@
     <h1>Risk Hub</h1>
     <p class="text-secondary">Dashboard de visualización de riesgos institucionales.</p>
   </div>
-  
+
   <div class="row">
     <div class="col-lg-6 col-md-12 mb-4">
       <mat-card class="h-100 card-animated">
         <mat-card-header>
           <mat-card-title>Calificación de Riesgo Institucional</mat-card-title>
         </mat-card-header>
-        <mat-card-content class="d-flex justify-content-center align-items-center">
+        <mat-card-content class="d-flex justify-content-center align-items-center py-4">
           <div class="gauge-container">
-            <div class="gauge-background"></div>
-            <div class="gauge-value">{{ displayRiskScore }}</div>
-            <div class="gauge-needle" [style.--gauge-angle]="getGaugeRotation()"></div>
-            <div class="gauge-center-dot"></div>
-            <div class="gauge-label-start">Bajo</div>
-            <div class="gauge-label-end">Alto</div>
+            <svg viewBox="0 0 120 70" class="gauge-svg">
+              <path class="gauge-background-arc" d="M10 65 A 50 50 0 0 1 110 65"></path>
+              <path class="gauge-color-arc low" d="M10 65 A 50 50 0 0 1 41 21"></path>
+              <path class="gauge-color-arc moderate" d="M41 21 A 50 50 0 0 1 79 21"></path>
+              <path class="gauge-color-arc high" d="M79 21 A 50 50 0 0 1 110 65"></path>
+            </svg>
+
+            <div class="gauge-needle-container" [style.transform]="getNeedleRotation()">
+              <div class="gauge-needle"></div>
+            </div>
+            <div class="gauge-pivot"></div>
+
+            <div class="gauge-text">
+              <div class="gauge-value">{{ displayRiskScore }}</div>
+              <!-- <div class="gauge-label">{{ getRiskLabel() }}</div> -->
+            </div>
+            <div class="gauge-range-labels">
+              <span>Bajo</span>
+              <span>Alto</span>
+            </div>
           </div>
         </mat-card-content>
       </mat-card>
@@ -33,9 +47,9 @@
             <div class="heatmap-row" *ngFor="let item of riskHeatmap">
               <div class="heatmap-label">{{ item.activity }}</div>
               <div class="heatmap-cells">
-                <div class="heatmap-cell" *ngFor="let risk of item.risks; let i = index" 
-                     [ngClass]="getHeatmapCellClass(risk)"
-                     [style.animation-delay]="(i * 50) + 'ms'">
+                <div *ngFor="let risk of item.risks; let i = index" class="heatmap-cell"
+                  [ngClass]="getHeatmapCellClass(risk)" [style.animation-delay]="(i * 40 + 100) + 'ms'"
+                  [matTooltip]="'Nivel de Riesgo: ' + risk">
                 </div>
               </div>
             </div>
@@ -65,13 +79,16 @@
         </mat-card-content>
       </mat-card>
     </div>
-    
+
+
     <div class="col-lg-6 col-md-12 mb-4">
-      <mat-card class="h-100 d-flex flex-column justify-content-center align-items-center card-animated" style="animation-delay: 300ms;">
-          <mat-icon class="config-icon">table_chart</mat-icon>
-          <h2 class="mat-h2">Matriz de Riesgo</h2>
-          <p class="text-secondary text-center">Define y ajusta las variables y pesos que calculan el riesgo.</p>
-          <button mat-flat-button color="primary" class="mt-3">Configurar Matriz</button>
+      <mat-card class="h-100 d-flex flex-column justify-content-center align-items-center card-animated"
+        style="animation-delay: 300ms;">
+        <mat-icon class="config-icon">table_chart</mat-icon>
+        <h2 class="mat-h2">Matriz de Riesgo</h2>
+        <p class="text-secondary text-center">Define y ajusta las variables y pesos que calculan el riesgo.</p>
+        <button mat-flat-button color="primary" class="mt-3" (click)="openMatrixConfigModal()">Configurar
+          Matriz</button>
       </mat-card>
     </div>
   </div>

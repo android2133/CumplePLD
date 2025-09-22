@@ -37,12 +37,21 @@ export class TransactionListComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.success) {
         // Añade los datos reales del Excel a la tabla
-        const newTransactions = result.data.map((row: any) => ({
-          fecha: new Date(row.FECHA),
-          cliente: row.Cliente,
-          operacion: row.Operación,
-          monto: row.Monto
-        }));
+         const newTransactions = result.data.map((row: any) => {
+          // 1. Función para convertir 'dd/mm/yyyy' a un objeto Date
+          const parseDate = (dateString: string): Date => {
+            const [day, month, year] = dateString.split('/');
+            return new Date(+year, +month - 1, +day);
+          };
+
+          return {
+            // 2. Usa la función para convertir la fecha
+            fecha: parseDate(row.FECHA),
+            cliente: row.Cliente,
+            operacion: row.Operación,
+            monto: row.Monto
+          };
+        });
         // Añade los nuevos registros a los existentes
         this.dataSource.data = [...this.dataSource.data, ...newTransactions];
       }

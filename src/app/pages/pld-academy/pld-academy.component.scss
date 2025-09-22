@@ -95,3 +95,44 @@
     color: var(--text-secondary-color);
   }
 }
+
+// ... (otros estilos)
+
+// --- ESTILOS MEJORADOS PARA TARJETAS DE MÉTRICAS ---
+.metric-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  
+  .metric-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-right: 1rem;
+    
+    &.color-success { color: var(--success-color); }
+    &.color-warning { color: var(--accent-color); }
+    &.color-danger { color: var(--danger-color); }
+  }
+
+  .metric-text h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .metric-text p {
+    color: var(--text-secondary-color);
+    margin: 0;
+  }
+}
+
+
+.pdf-template-container {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}

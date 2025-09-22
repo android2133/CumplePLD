@@ -1,0 +1,32 @@
+<div class="report-container">
+  <header class="report-header">
+    <img src="assets/cumplepld-logo-dark.svg" alt="CumplePLD Logo" class="logo-main">
+  </header>
+  <div class="report-title-section">
+    <h1>Reporte de Capacitación PLD</h1>
+    <p>Estado del personal al {{ currentDate | date:'fullDate' }}</p>
+  </div>
+  <main class="report-content">
+    <table>
+      <thead>
+        <tr>
+          <th>Empleado</th>
+          <th>Curso Asignado</th>
+          <th>Estado</th>
+          <th>% Avance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let staff of staffData">
+          <td>{{ staff.empleado }}</td>
+          <td>{{ staff.cursoAsignado }}</td>
+          <td>{{ staff.estado }}</td>
+          <td>{{ staff.avance }}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <footer class="report-footer">
+    <p>Documento confidencial generado por CumplePLD.</p>
+  </footer>
+</div>

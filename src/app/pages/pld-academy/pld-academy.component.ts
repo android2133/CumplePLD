@@ -7,6 +7,10 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { StartCourseModalComponent } from '../../shared/start-course-modal/start-course-modal.component';
+import { PdfReportService } from '../../services/pdf-report.service';
+import { TrainingReportTemplateComponent } from '../../shared/pdf-templates/training-report-template/training-report-template.component';
 
 // Interfaces para los datos
 export interface StaffTraining {
@@ -42,7 +46,7 @@ const AVAILABLE_COURSES_DATA: AvailableCourse[] = [
   standalone: true,
   imports: [
     CommonModule, MatCardModule, MatProgressBarModule, MatButtonModule,
-    MatTableModule, MatPaginatorModule, MatChipsModule, MatIconModule
+    MatTableModule, MatPaginatorModule, MatChipsModule, MatIconModule, TrainingReportTemplateComponent
   ],
   templateUrl: './pld-academy.component.html',
   styleUrls: ['./pld-academy.component.scss']
@@ -63,7 +67,10 @@ export class PldAcademyComponent implements OnInit, AfterViewInit {
   // Catálogo de cursos
   availableCourses = AVAILABLE_COURSES_DATA;
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+    private pdfService: PdfReportService,
+  ) { }
 
   ngOnInit(): void { }
 
@@ -79,5 +86,21 @@ export class PldAcademyComponent implements OnInit, AfterViewInit {
       case 'Pendiente': return 'chip-secondary';
       default: return '';
     }
+  }
+
+  openStartCourseModal(courseTitle: string): void {
+    this.dialog.open(StartCourseModalComponent, {
+      width: '500px',
+      data: { title: courseTitle }
+    });
+  }
+
+  showTrainingReport = false;
+  generateTrainingReport(): void {
+    this.showTrainingReport = true;
+    setTimeout(() => {
+      this.pdfService.generatePdf('training-report', 'Reporte_Capacitacion_PLD');
+      this.showTrainingReport = false;
+    }, 100);
   }
 }

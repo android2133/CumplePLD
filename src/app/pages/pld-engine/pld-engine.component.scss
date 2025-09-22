@@ -1,3 +1,4 @@
+
 .page-header {
   margin-bottom: 2rem;
   h1 {
@@ -11,21 +12,36 @@
   padding: 1rem !important;
 }
 
-.metric-card-mini {
+// --- ESTILOS MEJORADOS PARA TARJETAS DE MÉTRICAS ---
+.mini-metric-card {
+  display: flex;
+  align-items: center;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  text-align: center;
   
-  h3 {
+  .metric-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-right: 0rem;
+    
+    &.color-primary { color: var(--primary-color); }
+    &.color-warning { color: var(--accent-color); }
+  }
+
+  .metric-text h3 {
     font-size: 2rem;
     font-weight: 700;
     color: var(--primary-color);
     margin: 0;
+    line-height: 1;
+    text-align: center;
   }
 
-  p {
+  .metric-text p {
     color: var(--text-secondary-color);
     margin: 0;
+    font-size: 0.9rem;
   }
 }
 
@@ -48,8 +64,9 @@
   }
 
   .suspicious-row {
-    background-color: #fff3f3 !important; // Rojo muy claro
+    background-color: #fff3f3 !important;
     font-weight: 500;
+    cursor: pointer;
     
     &:hover {
         background-color: #ffeaea !important;
@@ -71,14 +88,9 @@ mat-card-actions button {
     margin: 0.5rem;
 }
 
-
-// ... (estilos existentes) ...
-.suspicious-row {
-  background-color: #fff3f3 !important;
-  font-weight: 500;
-  cursor: pointer; // <-- AÑADIR ESTA LÍNEA
-  
-  &:hover {
-      background-color: #ffeaea !important;
-  }
+// Estilo para ocultar la plantilla del PDF
+.pdf-template-container {
+  position: absolute;
+  left: -9999px;
+  top: 0;
 }

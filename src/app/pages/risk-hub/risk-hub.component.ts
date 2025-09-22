@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { MatrixConfigModalComponent } from '../../shared/matrix-config-modal/matrix-config-modal.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-risk-hub',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatTooltipModule],
   templateUrl: './risk-hub.component.html',
   styleUrls: ['./risk-hub.component.scss']
 })
@@ -34,7 +37,9 @@ export class RiskHubComponent implements OnInit {
     { activity: 'Casinos', risks: [4, 5, 5, 5, 5] }
   ];
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.animateScore();
@@ -99,4 +104,38 @@ export class RiskHubComponent implements OnInit {
     )`;
     return { background: conicGradient };
   }
+
+
+  openMatrixConfigModal(): void {
+    this.dialog.open(MatrixConfigModalComponent, {
+      width: '800px',
+      autoFocus: false,
+    });
+  }
+
+   getGaugeDashOffset(): number {
+    const totalLength = 157; // Longitud del arco del semicírculo (π * r)
+    const percentage = this.institutionalRiskScore / 100;
+    return totalLength * (1 - percentage);
+  }
+
+  getRiskColor(): string {
+    if (this.institutionalRiskScore <= 40) return '#28a745'; // Verde
+    if (this.institutionalRiskScore <= 70) return '#ffc107'; // Amarillo
+    return '#dc3545'; // Rojo
+  }
+
+  getRiskLabel(): string {
+    if (this.institutionalRiskScore <= 40) return 'Bajo';
+    if (this.institutionalRiskScore <= 70) return 'Moderado';
+    return 'Alto';
+  }
+
+   getNeedleRotation(): string {
+    // El -90 es el punto de partida (izquierda)
+    // El 180 es el arco total a recorrer (de -90 a +90)
+    const angle = -90 + (this.displayRiskScore / 100) * 180;
+    return `rotate(${angle}deg)`;
+  }
+
 }

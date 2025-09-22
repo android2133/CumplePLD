@@ -59,19 +59,25 @@
 
     <div class="col-lg-6">
       <div class="row">
-        <div class="col-sm-6">
-          <mat-card class="metric-card-mini">
-            <h3>{{ monitoredTransactions | number }}</h3>
-            <p>transacciones monitoreadas hoy</p>
-          </mat-card>
+    <div class="col-sm-6">
+      <mat-card class="mini-metric-card">
+        <mat-icon class="metric-icon color-primary">insights</mat-icon>
+        <div class="metric-text">
+          <h3>{{ monitoredTransactions | number }}</h3>
+          <p>transacciones monitoreadas hoy</p>
         </div>
-        <div class="col-sm-6">
-          <mat-card class="metric-card-mini">
-            <h3>{{ suspiciousPercentage }}%</h3>
-            <p>de transacciones sospechosas</p>
-          </mat-card>
+      </mat-card>
+    </div>
+    <div class="col-sm-6">
+      <mat-card class="mini-metric-card">
+        <mat-icon class="metric-icon color-warning">gpp_maybe</mat-icon>
+        <div class="metric-text">
+          <h3>{{ suspiciousPercentage }}%</h3>
+          <p>de transacciones sospechosas</p>
         </div>
-      </div>
+      </mat-card>
+    </div>
+  </div>
       
       <mat-card class="transactions-table-card">
         <div class="table-container">
@@ -118,7 +124,7 @@
           </ul>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-stroked-button color="primary" class="w-100">Configurar Reglas</button>
+          <button mat-stroked-button color="primary" class="w-100" (click)="openRulesConfigModal()">Configurar Reglas</button>
         </mat-card-actions>
       </mat-card>
       
@@ -135,9 +141,16 @@
           </ul>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-flat-button color="primary" class="w-100">Generar Archivo</button>
+          <button mat-flat-button color="primary" class="w-100" (click)="generateAuthorityReport()">Generar Archivo</button>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
+</div>
+<div class="pdf-template-container" *ngIf="showAuthorityReport">
+  <app-authority-report-template 
+    id="authority-report"
+    [suspiciousTransactions]="suspiciousTransactionsForReport"
+    >
+  </app-authority-report-template>
 </div>

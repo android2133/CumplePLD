@@ -3,10 +3,10 @@
     <h1>PLD Academy</h1>
     <p class="text-secondary">Gestión de capacitación y certificación del personal.</p>
   </div>
-  
+
   <div class="row">
     <div class="col-lg-8">
-      
+
       <div class="row section-titles">
         <div class="col-md-4">
           <h3>Cursos</h3>
@@ -18,28 +18,37 @@
 
       <div class="row">
         <div class="col-md-4">
-          <mat-card class="metric-card">
-            <h2>{{ certifiedPercentage }}%</h2>
-            <p>% de personal certificado</p>
+          <mat-card class="metric-card h-100">
+            <mat-icon class="metric-icon color-success">school</mat-icon>
+            <div class="metric-text">
+              <h2>{{ certifiedPercentage }}%</h2>
+              <p>% de personal certificado</p>
+            </div>
           </mat-card>
         </div>
         <div class="col-md-4">
-          <mat-card class="metric-card">
-            <h2>{{ expiringSoon }}</h2>
-            <p>en los próximos a vencer</p>
+          <mat-card class="metric-card h-100">
+            <mat-icon class="metric-icon color-warning">event_repeat</mat-icon>
+            <div class="metric-text">
+              <h2>{{ expiringSoon }}</h2>
+              <p>cursos próximos a vencer</p>
+            </div>
           </mat-card>
         </div>
         <div class="col-md-4">
-          <mat-card class="metric-card">
-            <h2>{{ overdueCourses }}</h2>
-            <p>cursos atrasados</p>
+          <mat-card class="metric-card h-100">
+            <mat-icon class="metric-icon color-danger">history</mat-icon>
+            <div class="metric-text">
+              <h2>{{ overdueCourses }}</h2>
+              <p>cursos atrasados</p>
+            </div>
           </mat-card>
         </div>
       </div>
-      
-      <mat-card class="staff-table-card">
+
+      <mat-card class="staff-table-card mt-4">
         <mat-card-header>
-          <mat-card-title>Cursos</mat-card-title> 
+          <mat-card-title>Cursos</mat-card-title>
         </mat-card-header>
         <div class="table-container">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
@@ -75,7 +84,7 @@
         </div>
         <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
         <mat-card-actions align="end">
-            <button mat-flat-button color="primary">Generar Reporte de Capacitación</button>
+            <button mat-flat-button color="primary" (click)="generateTrainingReport()">Generar Reporte de Capacitación</button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -92,10 +101,18 @@
             <p>{{ course.description }}</p>
           </mat-card-content>
           <mat-card-actions align="end">
-            <button mat-flat-button color="primary">Iniciar Curso</button>
+            <button mat-flat-button color="primary" (click)="openStartCourseModal(course.title)">Iniciar Curso</button>
           </mat-card-actions>
         </mat-card>
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="pdf-template-container" *ngIf="showTrainingReport">
+  <app-training-report-template 
+    id="training-report"
+    [staffData]="dataSource.data">
+  </app-training-report-template>
 </div>

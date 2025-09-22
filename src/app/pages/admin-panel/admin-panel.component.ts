@@ -9,6 +9,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { UserFormModalComponent } from '../../shared/user-form-modal/user-form-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 // Interfaces de datos
@@ -75,7 +77,7 @@ export class AdminPanelComponent implements OnInit {
   roles = ROLES_DATA;
   selectedRole: Role | null = this.roles[0];
   
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void { }
 
@@ -88,4 +90,30 @@ export class AdminPanelComponent implements OnInit {
   hasPermission(permissionId: string): boolean {
     return this.selectedRole ? this.selectedRole.permissions.includes(permissionId) : false;
   }
+
+  openUserModal(user?: User): void {
+    const dialogRef = this.dialog.open(UserFormModalComponent, {
+      width: '500px',
+      data: user // Si 'user' existe, es modo edición. Si es null, es modo creación.
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if (result) {
+        if (user) {
+          // Lógica de Edición
+          const index = this.dataSource.data.findIndex(u => u.correo === user.correo);
+          if (index > -1) {
+            const updatedData = [...this.dataSource.data];
+            updatedData[index] = { ...updatedData[index], ...result };
+            this.dataSource.data = updatedData;
+          }
+        } else {
+          // Lógica de Creación
+          const newUser = { ...result, estado: true };
+          this.dataSource.data = [...this.dataSource.data, newUser];
+        }
+      }
+    });
+  }
+
 }
