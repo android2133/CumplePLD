@@ -188,3 +188,61 @@
   background-color: rgba(220, 53, 69, 0.15) !important;
   color: #a12331 !important;
 }
+
+
+/* TuArchivo.component.scss */
+
+/* Estilo para cada elemento de la lista para separarlos visualmente */
+.custom-alert-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  height: auto !important; /* Permite que el item crezca si el texto es largo */
+  padding: 12px 0;
+}
+
+/* Contenedor principal del contenido, usa todo el ancho disponible */
+.alert-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Apila el header y el body verticalmente */
+  gap: 4px; /* Pequeño espacio entre la fila de arriba y la de abajo */
+}
+
+/* Estilos para las filas (header y body) */
+.alert-header,
+.alert-body {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centra los items verticalmente en su fila */
+}
+
+/* Estilo para el ID de la alerta: texto principal y en negrita */
+.alert-id {
+  font-weight: 500;
+  font-size: 1em;
+  color: #333;
+}
+
+/* Estilo para la fecha: más pequeño y con un color sutil */
+.alert-date {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Estilo para la descripción: texto normal */
+.alert-description {
+  font-size: 0.9em;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* Estilo para el monto: más grande, en negrita y con un color distintivo */
+.alert-amount {
+  font-size: 1.05em;
+  font-weight: 500;
+  color: #1e8e3e; /* Un tono de verde para finanzas */
+}
+
+/* Ajusta el color del ícono para que coincida */
+.alert-icon {
+    color: #1976d2; /* Un color azul estándar de Material */
+}

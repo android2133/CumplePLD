@@ -30,12 +30,17 @@ export class RiskHubComponent implements OnInit {
   
   // Datos para el Mapa de Calor [Actividad, Nivel de Riesgo 1-5]
   riskHeatmap = [
-    { activity: 'Donativos', risks: [1, 2, 3, 4, 5] },
-    { activity: 'Rifas', risks: [2, 3, 4, 4, 5] },
-    { activity: 'Subastas', risks: [3, 3, 4, 5, 5] },
-    { activity: 'Asesoría', risks: [1, 1, 2, 2, 3] },
-    { activity: 'Casinos', risks: [4, 5, 5, 5, 5] }
-  ];
+  { activity: 'Compraventa de inmuebles', risks: [4, 5, 5, 5, 5] },
+  { activity: 'Arrendamiento de inmuebles', risks: [2, 3, 3, 4, 4] },
+  { activity: 'Venta de joyas y relojes', risks: [3, 4, 4, 5, 5] },
+  { activity: 'Blindaje de vehículos', risks: [3, 4, 5, 5, 5] },
+  { activity: 'Donativos a asociaciones civiles', risks: [2, 3, 4, 4, 5] },
+  { activity: 'Venta de obras de arte', risks: [3, 4, 4, 5, 5] },
+  { activity: 'Venta de metales preciosos', risks: [3, 4, 5, 5, 5] },
+  { activity: 'Servicios de creación de empresas/fideicomisos', risks: [4, 4, 5, 5, 5] },
+  { activity: 'Actividades con activos virtuales', risks: [5, 5, 5, 5, 5] },
+  { activity: 'Transporte y custodia de valores', risks: [3, 4, 4, 4, 5] }
+];
 
   constructor(
     public dialog: MatDialog

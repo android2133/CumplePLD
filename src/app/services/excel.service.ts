@@ -31,7 +31,7 @@ export class ExcelService {
 
   public downloadProfessionalTemplate(): void {
     const fileName = 'Plantilla_Carga_Transacciones.xlsx';
-    const headers = ['FECHA', 'Cliente', 'Operación', 'Monto'];
+    const headers = ['Fecha de la operación', 'Nombre o razón social del cliente', 'RFC del cliente', 'Tipo de operación','Descripción de la operación','Monto de la operación','Moneda','Medio de pago','Nombre del beneficiario final','RFC del beneficiario final'];
 
     // 1. Crear una hoja de trabajo vacía con las cabeceras
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet([headers]);

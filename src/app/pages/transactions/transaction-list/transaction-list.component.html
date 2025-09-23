@@ -1,11 +1,12 @@
 <div class="container-fluid mt-4">
-  <div class="page-header d-flex justify-content-between align-items-center">
+  <!-- Encabezado de la página -->
+  <div class="page-header d-flex justify-content-between align-items-center mb-4">
     <div>
       <h1>Transacciones</h1>
       <p class="text-secondary">Registro de transacciones cargadas al sistema.</p>
     </div>
     <div class="d-flex gap-2">
-       <button mat-stroked-button color="primary" (click)="downloadTemplate()">
+      <button mat-stroked-button color="primary" (click)="downloadTemplate()">
         <mat-icon>download</mat-icon>
         Descargar Plantilla
       </button>
@@ -16,34 +17,73 @@
     </div>
   </div>
 
-  <div class="mat-elevation-z8">
+  <!-- Tabla de transacciones -->
+  <div class="mat-elevation-z8 overflow-auto">
     <table mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef> Fecha </th>
-        <td mat-cell *matCellDef="let tx"> {{tx.fecha | date:'dd/MM/yyyy'}} </td>
-      </ng-container>
-      <ng-container matColumnDef="cliente">
-        <th mat-header-cell *matHeaderCellDef> Cliente </th>
-        <td mat-cell *matCellDef="let tx"> {{tx.cliente}} </td>
-      </ng-container>
-      <ng-container matColumnDef="operacion">
-        <th mat-header-cell *matHeaderCellDef> Operación </th>
-        <td mat-cell *matCellDef="let tx"> {{tx.operacion}} </td>
-      </ng-container>
-       <ng-container matColumnDef="monto">
-        <th mat-header-cell *matHeaderCellDef> Monto </th>
-        <td mat-cell *matCellDef="let tx"> {{tx.monto | currency:'MXN'}} </td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let tx">
-        <button mat-icon-button color="warn" (click)="deleteTransaction(tx)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- Columnas de datos -->
+      <ng-container matColumnDef="fechaOperacion">
+        <th mat-header-cell *matHeaderCellDef> Fecha de la operación </th>
+        <td mat-cell *matCellDef="let row"> {{row.fechaOperacion | date:'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombreCliente">
+        <th mat-header-cell *matHeaderCellDef> Nombre o razón social del cliente </th>
+        <td mat-cell *matCellDef="let row"> {{row.nombreCliente}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rfcCliente">
+        <th mat-header-cell *matHeaderCellDef> RFC del cliente </th>
+        <td mat-cell *matCellDef="let row"> {{row.rfcCliente}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipoOperacion">
+        <th mat-header-cell *matHeaderCellDef> Tipo de operación </th>
+        <td mat-cell *matCellDef="let row"> {{row.tipoOperacion}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcionOperacion">
+        <th mat-header-cell *matHeaderCellDef> Descripción de la operación </th>
+        <td mat-cell *matCellDef="let row"> {{row.descripcionOperacion}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="montoOperacion">
+        <th mat-header-cell *matHeaderCellDef> Monto de la operación </th>
+        <td mat-cell *matCellDef="let row"> {{row.montoOperacion | currency:'MXN':'symbol':'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="moneda">
+        <th mat-header-cell *matHeaderCellDef> Moneda </th>
+        <td mat-cell *matCellDef="let row"> {{row.moneda}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="medioPago">
+        <th mat-header-cell *matHeaderCellDef> Medio de pago </th>
+        <td mat-cell *matCellDef="let row"> {{row.medioPago}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombreBeneficiario">
+        <th mat-header-cell *matHeaderCellDef> Nombre del beneficiario final </th>
+        <td mat-cell *matCellDef="let row"> {{row.nombreBeneficiario}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rfcBeneficiario">
+        <th mat-header-cell *matHeaderCellDef> RFC del beneficiario final </th>
+        <td mat-cell *matCellDef="let row"> {{row.rfcBeneficiario}} </td>
+      </ng-container>
+
+      <!-- Columna de Acciones -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="warn" (click)="deleteTransaction(row)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Filas de encabezado y datos -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>

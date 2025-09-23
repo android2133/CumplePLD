@@ -59,7 +59,8 @@ export class DashboardComponent {
     { title: 'Client 360', description: 'Investiga perfiles de clientes.', icon: 'people', link: '/client-360' },
     { title: 'PLD Engine', description: 'Monitorea transacciones y alertas.', icon: 'settings_ethernet', link: '/pld-engine' },
     { title: 'Risk Hub', description: 'Visualiza el riesgo institucional.', icon: 'security', link: '/risk-hub' },
-    { title: 'PLD Academy', description: 'Gestiona la capacitación del equipo.', icon: 'school', link: '/pld-academy' }
+    { title: 'PLD Academy', description: 'Gestiona la capacitación del equipo.', icon: 'school', link: '/pld-academy' },
+    { title: 'Vista de Auditoría', description: '', icon: 'school', link: '/pld-academy' }
   ];
 
   constructor(

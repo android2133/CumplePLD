@@ -28,7 +28,7 @@ export class TransactionUploadComponent implements OnInit {
   
   file: File | null = null;
   excelData: any[] = [];
-  displayedColumns: string[] = ['FECHA', 'Cliente', 'Operación', 'Monto'];
+  displayedColumns: string[] = ['Fecha de la operación','Nombre o razón social del cliente','RFC del cliente','Tipo de operación','Descripción de la operación', 'Monto de la operación', 'Moneda','Medio de pago','Nombre del beneficiario final','RFC del beneficiario final'];
   
   isSimulating = false;
   uploadSuccess = false;

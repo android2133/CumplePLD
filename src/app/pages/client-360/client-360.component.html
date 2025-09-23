@@ -64,10 +64,22 @@
             <mat-card class="mb-4">
                 <mat-card-title class="card-title-header">Alertas Vinculadas</mat-card-title>
                 <mat-list>
-                    <mat-list-item *ngFor="let alert of linkedAlerts" class="alert-item">
+                    <mat-list-item *ngFor="let alert of linkedAlerts" class="custom-alert-item">
                         <mat-icon matListItemIcon class="alert-icon">notification_important</mat-icon>
-                        <div matListItemTitle><strong>Alerta {{ alert.id }}</strong></div>
-                        <div matListItemLine>{{ alert.description }}</div>
+
+                        <div class="alert-content px-4">
+                            <div class="alert-header">
+                                <span class="alert-id">Alerta {{ alert.id }}</span>
+                                <span class="alert-date">{{ alert.fecha | date:'dd/MM/yyyy' }}</span>
+                            </div>
+
+                            <div class="alert-body">
+                                <span class="alert-description">{{ alert.description }}</span>
+                                <span class="alert-amount">{{ alert.monto_mxn | currency:'MXN':'symbol':'1.2-2'
+                                    }}</span>
+                            </div>
+                        </div>
+
                     </mat-list-item>
                 </mat-list>
             </mat-card>
@@ -79,15 +91,21 @@
                         <thead>
                             <tr>
                                 <th>Fecha</th>
-                                <th>Descripción</th>
-                                <th class="text-end">Monto</th>
+                                <th>Cliente</th>
+                                <th>Descripción</th>                                
+                                <th>Monto</th>
+                                <th>Medio de pago</th>
+                                <th class="text-end">Tipo de operación</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let tx of transactionHistory">
                                 <td>{{ tx.date | date:'dd/MM/yyyy' }}</td>
+                                <td>{{ tx.client }}</td>
                                 <td>{{ tx.description }}</td>
-                                <td class="text-end amount">{{ tx.amount | currency:'MXN' }}</td>
+                                <td class="amount">{{ tx.amount | currency:'MXN' }}</td>
+                                <td>{{ tx.paymentMethod }}</td>
+                                <td class="text-end">{{ tx.operationType }}</td>
                             </tr>
                         </tbody>
                     </table>

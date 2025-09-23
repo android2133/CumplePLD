@@ -23,17 +23,14 @@
 
     <div class="col-md-7">
       <h4>Carga Manual Mediante Layout</h4>
-      
+
       <button mat-stroked-button (click)="downloadTemplate()" class="w-100 mb-3">
         <mat-icon>download</mat-icon>
         Descargar plantilla de Excel
       </button>
 
-      <div class="drop-zone" 
-           appDragDrop 
-           (fileDropped)="handleFile($event)"
-           (click)="fileInput.click()"
-           [class.has-file]="file">
+      <div class="drop-zone" appDragDrop (fileDropped)="handleFile($event)" (click)="fileInput.click()"
+        [class.has-file]="file">
         <div *ngIf="!file; else fileInfo">
           <mat-icon>cloud_upload</mat-icon>
           <span>Arrastra y suelta el archivo</span>
@@ -43,7 +40,8 @@
           <span>{{ file?.name }}</span>
         </ng-template>
       </div>
-      <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+      <input type="file" #fileInput (change)="onFileSelected($event)" hidden
+        accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 
       <div *ngIf="file" class="d-flex gap-2 mt-2">
         <button mat-flat-button class="flex-fill" [disabled]="excelData.length > 0" (click)="loadFileForPreview()">
@@ -62,22 +60,51 @@
     <h5>Previsualización de Datos</h5>
     <div class="table-container">
       <table mat-table [dataSource]="excelData">
-        <ng-container matColumnDef="FECHA">
-          <th mat-header-cell *matHeaderCellDef> Fecha </th>
-          <td mat-cell *matCellDef="let row"> {{row['FECHA']}} </td>
+        <ng-container matColumnDef="Fecha de la operación">
+          <th mat-header-cell *matHeaderCellDef> Fecha de la operación </th>
+          <td mat-cell *matCellDef="let row"> {{row['Fecha de la operación']}} </td>
         </ng-container>
-        <ng-container matColumnDef="Cliente">
-          <th mat-header-cell *matHeaderCellDef> Cliente </th>
-          <td mat-cell *matCellDef="let row"> {{row['Cliente']}} </td>
+        <ng-container matColumnDef="Nombre o razón social del cliente">
+          <th mat-header-cell *matHeaderCellDef> Nombre o razón social del cliente </th>
+          <td mat-cell *matCellDef="let row"> {{row['Nombre o razón social del cliente']}} </td>
         </ng-container>
-        <ng-container matColumnDef="Operación">
-          <th mat-header-cell *matHeaderCellDef> Operación </th>
-          <td mat-cell *matCellDef="let row"> {{row['Operación']}} </td>
+        <ng-container matColumnDef="RFC del cliente">
+          <th mat-header-cell *matHeaderCellDef> RFC del cliente </th>
+          <td mat-cell *matCellDef="let row"> {{row['RFC del cliente']}} </td>
         </ng-container>
-        <ng-container matColumnDef="Monto">
-          <th mat-header-cell *matHeaderCellDef> Monto </th>
-          <td mat-cell *matCellDef="let row"> {{row['Monto'] | currency}} </td>
+        <ng-container matColumnDef="Tipo de operación">
+          <th mat-header-cell *matHeaderCellDef> Tipo de operación </th>
+          <td mat-cell *matCellDef="let row"> {{row['Tipo de operación']}} </td>
         </ng-container>
+        <ng-container matColumnDef="Descripción de la operación">
+          <th mat-header-cell *matHeaderCellDef> Descripción de la operación </th>
+          <td mat-cell *matCellDef="let row"> {{row['Descripción de la operación']}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Monto de la operación">
+          <th mat-header-cell *matHeaderCellDef> Monto de la operación </th>
+          <td mat-cell *matCellDef="let row"> {{row['Monto de la operación']}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Moneda">
+          <th mat-header-cell *matHeaderCellDef> Moneda </th>
+          <td mat-cell *matCellDef="let row"> {{row['Moneda']}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Medio de pago">
+          <th mat-header-cell *matHeaderCellDef> Medio de pago </th>
+          <td mat-cell *matCellDef="let row"> {{row['Medio de pago']}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Nombre del beneficiario final">
+          <th mat-header-cell *matHeaderCellDef> Nombre del beneficiario final </th>
+          <td mat-cell *matCellDef="let row"> {{row['Nombre del beneficiario final'] }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="RFC del beneficiario final">
+          <th mat-header-cell *matHeaderCellDef> RFC del beneficiario final </th>
+          <td mat-cell *matCellDef="let row"> {{row['RFC del beneficiario final'] }} </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
@@ -94,7 +121,8 @@
     </div>
   </div>
   <button mat-button (click)="close()">Cancelar</button>
-  <button mat-flat-button color="primary" [disabled]="excelData.length === 0 || isSimulating" (click)="validateAndSave()">
+  <button mat-flat-button color="primary" [disabled]="excelData.length === 0 || isSimulating"
+    (click)="validateAndSave()">
     Validar y Guardar
   </button>
 </mat-dialog-actions>
