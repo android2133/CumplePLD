@@ -1,0 +1,19 @@
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.filter-card {
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary-color);
+  }
+  .filter-select {
+    width: 300px;
+  }
+}
+
+table {
+  width: 100%;
+}

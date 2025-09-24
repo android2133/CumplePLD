@@ -11,6 +11,7 @@ import { ClientListComponent } from './pages/clients/client-list/client-list.com
 import { NewClientComponent } from './pages/clients/new-client/new-client.component';
 import { TransactionUploadComponent } from './pages/transactions/transaction-upload/transaction-upload.component';
 import { TransactionListComponent } from './pages/transactions/transaction-list/transaction-list.component';
+import { AuditLogComponent } from './pages/audit-log/audit-log.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
       { path: 'clients', component: ClientListComponent },
       { path: 'clients/new', component: NewClientComponent },      
       { path: 'transactions', component: TransactionListComponent },
+      { path: 'audit', component: AuditLogComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

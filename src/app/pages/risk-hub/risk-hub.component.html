@@ -18,15 +18,12 @@
               <path class="gauge-color-arc moderate" d="M41 21 A 50 50 0 0 1 79 21"></path>
               <path class="gauge-color-arc high" d="M79 21 A 50 50 0 0 1 110 65"></path>
             </svg>
-
             <div class="gauge-needle-container" [style.transform]="getNeedleRotation()">
               <div class="gauge-needle"></div>
             </div>
             <div class="gauge-pivot"></div>
-
             <div class="gauge-text">
               <div class="gauge-value">{{ displayRiskScore }}</div>
-              <!-- <div class="gauge-label">{{ getRiskLabel() }}</div> -->
             </div>
             <div class="gauge-range-labels">
               <span>Bajo</span>
@@ -59,27 +56,88 @@
     </div>
 
     <div class="col-lg-6 col-md-12 mb-4">
-      <mat-card class="h-100 card-animated" style="animation-delay: 200ms;">
-        <mat-card-header>
-          <mat-card-title>Distribución de Clientes por Nivel de Riesgo</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="d-flex flex-column flex-sm-row justify-content-center align-items-center h-100">
-          <div class="pie-chart-container" [style]="getPieChartStyle()"></div>
-          <div class="pie-chart-legend">
-            <div class="legend-item">
-              <span class="legend-color low"></span> Bajo ({{ clientDistribution.low }}%)
-            </div>
-            <div class="legend-item">
-              <span class="legend-color moderate"></span> Moderado ({{ clientDistribution.moderate }}%)
-            </div>
-            <div class="legend-item">
-              <span class="legend-color high"></span> Alto ({{ clientDistribution.high }}%)
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+      <div class="row">
+        <div class="col-12 mb-4">
+          <mat-card class="h-100 card-animated" style="animation-delay: 200ms;">
+            <mat-card-header>
+              <mat-card-title>Distribución de Clientes por Nivel de Riesgo</mat-card-title>
+              <mat-card-subtitle>Total: {{ totalClients }} Clientes</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="d-flex flex-column flex-sm-row justify-content-center align-items-center h-100">
+              <div class="pie-chart-wrapper">
+                <div class="pie-chart-container" [style]="getPieChartStyle()"></div>
+                <div class="pie-chart-center-text">
+                  <div class="total-value">{{ totalClients }}</div>
+                  <div class="total-label">Clientes</div>
+                </div>
+              </div>
+              <div class="pie-chart-legend">
+                <div class="legend-item">
+                  <span class="legend-color low"></span> Bajo ({{ clientDistributionPercentages.low }}%) - {{ clientDistribution.low }} clientes
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color moderate"></span> Moderado ({{ clientDistributionPercentages.moderate }}%) - {{ clientDistribution.moderate }} clientes
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color high"></span> Alto ({{ clientDistributionPercentages.high }}%) - {{ clientDistribution.high }} clientes
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
 
+        <div class="col-12">
+           <mat-card class="h-100 card-animated" style="animation-delay: 250ms;">
+             <mat-card-header>
+               <mat-card-title>Búsqueda de Cliente</mat-card-title>
+             </mat-card-header>
+             <mat-card-content class="d-flex flex-column p-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre o Razón Social</mat-label>
+                  <input matInput [(ngModel)]="searchName" placeholder="Ej. Servicios Legales">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="mt-2">
+                  <mat-label>RFC</mat-label>
+                  <input matInput [(ngModel)]="searchRfc" placeholder="Ej. JDA101010ZZA">
+                </mat-form-field>
+
+                <div class="search-actions">
+                  <button mat-flat-button color="primary" (click)="simulateSearch()">
+                    <mat-icon>search</mat-icon> Buscar Cliente
+                  </button>
+                  
+                  <button mat-button color="warn" 
+                          *ngIf="searchName || searchRfc" 
+                          (click)="clearSearch()">
+                    <mat-icon>clear</mat-icon> Limpiar
+                  </button>
+                </div>
+               
+                <div *ngIf="searchResult" class="search-result-container">
+                    <p class="result-name">{{ searchResult.name }}</p>
+                    <p class="text-secondary">{{ searchResult.rfc }}</p>
+                    <div class="result-score-container">
+                        <div class="result-score" [style.color]="searchResult.color">{{ searchResult.score }}</div>
+                        <div class="result-label" [style.color]="searchResult.color">Nivel {{ searchResult.level }}</div>
+                    </div>
+                    <div class="score-bar-container">
+                        <div class="score-bar-fill" 
+                             [style.width.%]="searchResult.score"
+                             [style.backgroundColor]="searchResult.color">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="searchNotFound" class="search-result-container">
+                    <mat-icon>search_off</mat-icon>
+                    <p class="text-secondary mt-2">No se encontraron clientes con ese criterio.</p>
+                </div>
+             </mat-card-content>
+           </mat-card>
+        </div>
+      </div>
+    </div>
 
     <div class="col-lg-6 col-md-12 mb-4">
       <mat-card class="h-100 d-flex flex-column justify-content-center align-items-center card-animated"

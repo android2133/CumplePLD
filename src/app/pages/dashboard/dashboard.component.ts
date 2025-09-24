@@ -60,7 +60,7 @@ export class DashboardComponent {
     { title: 'PLD Engine', description: 'Monitorea transacciones y alertas.', icon: 'settings_ethernet', link: '/pld-engine' },
     { title: 'Risk Hub', description: 'Visualiza el riesgo institucional.', icon: 'security', link: '/risk-hub' },
     { title: 'PLD Academy', description: 'Gestiona la capacitación del equipo.', icon: 'school', link: '/pld-academy' },
-    { title: 'Vista de Auditoría', description: '', icon: 'school', link: '/pld-academy' }
+    { title: 'Vista de Auditoría', description: '', icon: 'school', link: '/audit' },    
   ];
 
   constructor(
