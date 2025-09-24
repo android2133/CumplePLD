@@ -9,7 +9,7 @@ import { TransactionUploadComponent } from '../transaction-upload/transaction-up
 
 // Interfaz para definir la estructura de una transacción
 export interface Transaction {
-  fechaOperacion: Date;
+  fechaOperacion: any;
   nombreCliente: string;
   rfcCliente: string;
   tipoOperacion: string;
@@ -23,9 +23,9 @@ export interface Transaction {
 
 // Datos de ejemplo que coinciden con la estructura de la tabla
 const MOCK_TRANSACTIONS: Transaction[] = [
-  { fechaOperacion: new Date('2025-09-01'), nombreCliente: 'Juan Pérez García', rfcCliente: 'PEGJ850101ABC', tipoOperacion: 'Compraventa', descripcionOperacion: 'Compra de inmueble en CDMX', montoOperacion: 3200000, moneda: 'MXN', medioPago: 'Efectivo', nombreBeneficiario: 'Inmobiliaria Sol SA de CV', rfcBeneficiario: 'ISO990101XYZ' },
-  { fechaOperacion: new Date('2025-09-02'), nombreCliente: 'María Gómez López', rfcCliente: 'GOLM900202DEF', tipoOperacion: 'Arrendamiento', descripcionOperacion: 'Renta mensual de local comercial', montoOperacion: 92000, moneda: 'MXN', medioPago: 'Transferencia', nombreBeneficiario: 'Juan Pérez García', rfcBeneficiario: 'PEGJ850101ABC' },
-  { fechaOperacion: new Date('2025-09-04'), nombreCliente: 'Fundación Vida AC', rfcCliente: 'FVI100303GHI', tipoOperacion: 'Donativo', descripcionOperacion: 'Donativo único para causa social', montoOperacion: 1200000, moneda: 'MXN', medioPago: 'Transferencia', nombreBeneficiario: 'Fundación Vida AC', rfcBeneficiario: 'FVI100303GHI' },
+  { fechaOperacion: '2025-09-01', nombreCliente: 'Juan Pérez García', rfcCliente: 'PEGJ850101ABC', tipoOperacion: 'Compraventa', descripcionOperacion: 'Compra de inmueble en CDMX', montoOperacion: 3200000, moneda: 'MXN', medioPago: 'Efectivo', nombreBeneficiario: 'Inmobiliaria Sol SA de CV', rfcBeneficiario: 'ISO990101XYZ' },
+  { fechaOperacion: '2025-09-01', nombreCliente: 'María Gómez López', rfcCliente: 'GOLM900202DEF', tipoOperacion: 'Arrendamiento', descripcionOperacion: 'Renta mensual de local comercial', montoOperacion: 92000, moneda: 'MXN', medioPago: 'Transferencia', nombreBeneficiario: 'Juan Pérez García', rfcBeneficiario: 'PEGJ850101ABC' },
+  { fechaOperacion: '2025-09-01', nombreCliente: 'Fundación Vida AC', rfcCliente: 'FVI100303GHI', tipoOperacion: 'Donativo', descripcionOperacion: 'Donativo único para causa social', montoOperacion: 1200000, moneda: 'MXN', medioPago: 'Transferencia', nombreBeneficiario: 'Fundación Vida AC', rfcBeneficiario: 'FVI100303GHI' },
 ];
 
 @Component({
