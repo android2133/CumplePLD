@@ -1,3 +1,4 @@
+
 :host {
   position: fixed;
   bottom: 2rem;
@@ -13,7 +14,7 @@
 
 .chat-window {
   width: 370px;
-  max-height: 500px;
+  max-height: 550px;
   background-color: var(--surface-color);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
@@ -21,8 +22,9 @@
   flex-direction: column;
   overflow: hidden;
   position: absolute;
-  bottom: calc(100% + 1rem); // Encima del botón
+  bottom: calc(100% + 1rem);
   right: 0;
+  transition: height 0.3s ease-in-out;
 }
 
 .chat-header {
@@ -32,11 +34,17 @@
   padding: 0.75rem 1.5rem;
   background-color: var(--primary-color);
   color: white;
+  flex-shrink: 0;
 
   h3 {
     font-size: 1.1rem;
     margin: 0;
     font-weight: 500;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -59,6 +67,7 @@
   border-radius: 18px;
   max-width: 80%;
   font-size: 0.95rem;
+  word-wrap: break-word;
 }
 
 .message-user {
@@ -85,9 +94,27 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 
   .mat-form-field {
-    // Truco para quitar el espacio extra de abajo
     padding-bottom: 1.34375em;
   }
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  background-color: #9E9E9E;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 2px;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-of-type(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-of-type(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
 }

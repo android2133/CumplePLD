@@ -2,18 +2,28 @@
   <mat-icon>{{ isChatOpen ? 'close' : 'chat' }}</mat-icon>
 </button>
 
-<div class="chat-window" *ngIf="isChatOpen">
+<div class="chat-window" *ngIf="isChatOpen" [style.height.px]="chatWindowHeight">
   <div class="chat-header">
-    <h3>CumplePLD IA – Asistente</h3>
-    <button mat-icon-button (click)="toggleChat()">
-      <mat-icon>close</mat-icon>
-    </button>
+    <h3>CumplePLD IA</h3>
+    <div>
+      <button mat-icon-button (click)="startNewChat()" matTooltip="Iniciar nuevo chat">
+        <mat-icon>add_comment</mat-icon>
+      </button>
+      <button mat-icon-button (click)="toggleChat()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
   </div>
   
-  <div class="chat-messages">
+  <div class="chat-messages" #chatMessagesContainer>
     <div *ngFor="let message of messages" class="message" [ngClass]="'message-' + message.sender">
       <div class="message-bubble">
         {{ message.text }}
+      </div>
+    </div>
+    <div *ngIf="isLoading" class="message message-assistant">
+      <div class="message-bubble typing-indicator">
+        <span></span><span></span><span></span>
       </div>
     </div>
   </div>
@@ -21,9 +31,9 @@
   <div class="chat-input">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Escribe un mensaje...</mat-label>
-      <input matInput [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+      <input matInput [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" [disabled]="isLoading">
     </mat-form-field>
-    <button mat-icon-button color="primary" (click)="sendMessage()">
+    <button mat-icon-button color="primary" (click)="sendMessage()" [disabled]="isLoading">
       <mat-icon>send</mat-icon>
     </button>
   </div>
