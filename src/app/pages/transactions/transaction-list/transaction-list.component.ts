@@ -65,9 +65,10 @@ export class TransactionListComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.success) {
+        
         // Mapea los datos del Excel a la interfaz Transaction
-        const newTransactions: Transaction[] = result.data.map((row: any) => ({
-          fechaOperacion: this.excelSerialDateToJSDate(row['Fecha de la operación']),
+        const newTransactions: Transaction[] = result.data.map((row: any) => ({          
+          fechaOperacion: row['Fecha de la operación'],
           nombreCliente: row['Nombre o razón social del cliente'],
           rfcCliente: row['RFC del cliente'],
           tipoOperacion: row['Tipo de operación'],
@@ -78,6 +79,9 @@ export class TransactionListComponent {
           nombreBeneficiario: row['Nombre del beneficiario final'],
           rfcBeneficiario: row['RFC del beneficiario final'],
         }));
+
+
+        console.log(newTransactions)
         
         this.dataSource.data = [...this.dataSource.data, ...newTransactions];
       }
@@ -86,6 +90,7 @@ export class TransactionListComponent {
 
   // Helper para convertir la fecha de número de serie de Excel a objeto Date de JS
   private excelSerialDateToJSDate(serial: number): Date {
+    console.log(serial)
     const utc_days = Math.floor(serial - 25569);
     const utc_value = utc_days * 86400;
     const date_info = new Date(utc_value * 1000);
