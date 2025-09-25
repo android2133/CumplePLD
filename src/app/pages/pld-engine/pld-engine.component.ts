@@ -31,13 +31,29 @@ export interface Transaction {
 
 // Datos simulados (con más variedad para probar filtros)
 const TRANSACTION_DATA: Transaction[] = [
-  { id: '1138', fecha: '2025-09-20T10:15:00', cliente: 'Juan Pérez', operacion: 'Compra Boletos Rifa', monto: 100000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias: ['Supera Umbral de $75,000 MXN'] },
-  { id: '1139', fecha: '2025-09-19T11:00:00', cliente: 'Ana Medina', operacion: 'Donativo', monto: 5500, origenAlerta: null, estado: 'Normal', coincidencias: [] },
-  { id: '1140', fecha: '2025-09-19T14:20:00', cliente: 'Carlos López', operacion: 'Colegiatura', monto: 18000, origenAlerta: null, estado: 'Normal', coincidencias: [] },
-  { id: '1141', fecha: '2025-09-18T09:05:00', cliente: 'Laura Martínez', operacion: 'Donativo', monto: 75000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias: ['Supera Umbral de $75,000 MXN'] },
-  { id: '1142', fecha: '2025-09-17T16:45:00', cliente: 'Ana Medina', operacion: 'Inscripción', monto: 3200, origenAlerta: null, estado: 'Normal', coincidencias: [] },
-  { id: '1143', fecha: '2025-09-16T12:00:00', cliente: 'Roberto Díaz', operacion: 'Donativo', monto: 500, origenAlerta: null, estado: 'Normal', coincidencias: [] },
-  { id: '1144', fecha: '2025-09-15T18:30:00', cliente: 'Sofía García', operacion: 'Compra Boletos Rifa', monto: 12000, origenAlerta: null, estado: 'Normal', coincidencias: [] },
+  {id: '1138', fecha: '2025-09-01', cliente: 'Juan Pérez', operacion: 'Compra de inmueble en CDMX', monto: 3200000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-02', cliente: 'María Gómez', operacion: 'Renta mensual de local comercial', monto: 92000, origenAlerta: 'umbral', estado: 'Normal', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-03', cliente: 'Juan Pérez', operacion: 'Compra de reloj de lujo', monto: 180000, origenAlerta: 'umbral', estado: 'Normal', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-04', cliente: 'Fundación Vida', operacion: 'Donativo único', monto: 1200000, origenAlerta: 'umbral', estado: 'Normal', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-05', cliente: 'Carlos Ruiz', operacion: 'Compra de vehículo blindado', monto: 1800000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-06', cliente: 'Sofía Martínez', operacion: 'Compra de obra de arte', monto: 1600000, origenAlerta: 'umbral', estado: 'Normal', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-07', cliente: 'Inversiones Delta', operacion: 'Compra de 3 inmuebles en 2 semanas', monto: 4000000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-08', cliente: 'Pedro Sánchez', operacion: 'Compra de joyas con criptomonedas', monto: 780000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-09', cliente: 'Laura Torres', operacion: 'Renta de 4 departamentos en zona turística', monto: 2200000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-10', cliente: 'Jorge Herrera', operacion: 'Compra de lingotes de oro', monto: 900000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-11', cliente: 'Ana López', operacion: 'Renta mensual de oficina', monto: 85000, origenAlerta: 'umbral', estado: 'Normal', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-12', cliente: 'Corporativo Zeta', operacion: 'Blindaje de flotilla de vehículos', monto: 5400000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-10-01', cliente: 'Juan Pérez', operacion: 'Compra de inmueble en CDMX', monto: 3800000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-07', cliente: 'Juan Pérez', operacion: 'Compra de inmueble en CDMX', monto: 2600000, origenAlerta: 'umbral', estado: 'Normal', coincidencias : ['Supera Umbral de $75,000 MXN']},
+  {id: '1138', fecha: '2025-09-05', cliente: 'Juan Pérez', operacion: 'Compra de inmueble en CDMX', monto: 5700000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias : ['Supera Umbral de $75,000 MXN']}
+
+  // { id: '1138', fecha: '2025-09-20T10:15:00', cliente: 'Juan Pérez', operacion: 'Compra Boletos Rifa', monto: 100000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias: ['Supera Umbral de $75,000 MXN'] },
+  // { id: '1139', fecha: '2025-09-19T11:00:00', cliente: 'Ana Medina', operacion: 'Donativo', monto: 5500, origenAlerta: null, estado: 'Normal', coincidencias: [] },
+  // { id: '1140', fecha: '2025-09-19T14:20:00', cliente: 'Carlos López', operacion: 'Colegiatura', monto: 18000, origenAlerta: null, estado: 'Normal', coincidencias: [] },
+  // { id: '1141', fecha: '2025-09-18T09:05:00', cliente: 'Laura Martínez', operacion: 'Donativo', monto: 75000, origenAlerta: 'umbral', estado: 'Sospechosa', coincidencias: ['Supera Umbral de $75,000 MXN'] },
+  // { id: '1142', fecha: '2025-09-17T16:45:00', cliente: 'Ana Medina', operacion: 'Inscripción', monto: 3200, origenAlerta: null, estado: 'Normal', coincidencias: [] },
+  // { id: '1143', fecha: '2025-09-16T12:00:00', cliente: 'Roberto Díaz', operacion: 'Donativo', monto: 500, origenAlerta: null, estado: 'Normal', coincidencias: [] },
+  // { id: '1144', fecha: '2025-09-15T18:30:00', cliente: 'Sofía García', operacion: 'Compra Boletos Rifa', monto: 12000, origenAlerta: null, estado: 'Normal', coincidencias: [] },
 ];
 
 @Component({

@@ -15,11 +15,11 @@ export interface AuditLog {
 }
 
 const MOCK_LOG_DATA: AuditLog[] = [
-  { date: new Date(), user: 'Javier (Tú)', action: 'Generación de Reporte', category: 'Reporte', details: 'Reporte de Operaciones Inusuales #3403' },
+  { date: new Date(), user: 'Javier', action: 'Generación de Reporte', category: 'Reporte', details: 'Reporte de Operaciones Inusuales #3403' },
   { date: new Date('2025-09-22T10:00:00'), user: 'Ana García', action: 'Creación de Cliente', category: 'Expediente', details: 'Cliente: Iker Garay Olazabal' },
   { date: new Date('2025-09-22T09:30:00'), user: 'Sistema', action: 'Alerta Automática', category: 'Alerta', details: 'Alerta #1141 por Umbral' },
-  { date: new Date('2025-09-21T15:00:00'), user: 'Javier (Tú)', action: 'Cierre de Alerta', category: 'Alerta', details: 'Alerta #1138' },
-  { date: new Date('2025-09-20T12:00:00'), user: 'Sistema', action: 'Generación de Aviso', category: 'Aviso', details: 'Aviso de Operación Relevante' },
+  { date: new Date('2025-09-21T15:00:00'), user: 'Javier', action: 'Cierre de Alerta', category: 'Alerta', details: 'Alerta #1138' },
+  { date: new Date('2025-09-20T12:00:00'), user: 'Sistema', action: 'Generación de Aviso', category: 'Aviso', details: 'Aviso de Operación' },
 ];
 
 @Component({

@@ -66,7 +66,7 @@ export class Client360Component implements OnInit {
   ];
 
 transactionHistory: TransactionHistoryItem[] = [
-  { date: '2025-09-01', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 3200000, paymentMethod: 'Efectivo', operationType: 'Compraventa inmueble' },
+  { date: '2025-09-01', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 3200000, paymentMethod: 'Transferencia', operationType: 'Compraventa inmueble' },
   { date: '2025-09-02', client: 'María Gómez', description: 'Renta mensual de local comercial', amount: 92000, paymentMethod: 'Transferencia', operationType: 'Arrendamiento' },
   { date: '2025-09-03', client: 'Juan Pérez', description: 'Compra de reloj de lujo', amount: 180000, paymentMethod: 'Tarjeta de crédito', operationType: 'Venta de joyería' },
   { date: '2025-09-04', client: 'Fundación Vida', description: 'Donativo único', amount: 1200000, paymentMethod: 'Transferencia', operationType: 'Donativo' },
@@ -78,9 +78,9 @@ transactionHistory: TransactionHistoryItem[] = [
   { date: '2025-09-10', client: 'Jorge Herrera', description: 'Compra de lingotes de oro', amount: 900000, paymentMethod: 'Efectivo', operationType: 'Venta de metales preciosos' },
   { date: '2025-09-11', client: 'Ana López', description: 'Renta mensual de oficina', amount: 85000, paymentMethod: 'Transferencia', operationType: 'Arrendamiento' },
   { date: '2025-09-12', client: 'Corporativo Zeta', description: 'Blindaje de flotilla de vehículos', amount: 5400000, paymentMethod: 'Transferencia', operationType: 'Blindaje' },
-  { date: '2025-10-01', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 3800000, paymentMethod: 'Efectivo', operationType: 'Compraventa inmueble' },
-  { date: '2025-09-07', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 2600000, paymentMethod: 'Efectivo', operationType: 'Compraventa inmueble' },
-  { date: '2025-09-05', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 5700000, paymentMethod: 'Efectivo', operationType: 'Compraventa inmueble' }
+  { date: '2025-10-01', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 3800000, paymentMethod: 'Transferencia', operationType: 'Compraventa inmueble' },
+  { date: '2025-09-07', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 2600000, paymentMethod: 'Transferencia', operationType: 'Compraventa inmueble' },
+  { date: '2025-09-05', client: 'Juan Pérez', description: 'Compra de inmueble en CDMX', amount: 5700000, paymentMethod: 'Transferencia', operationType: 'Compraventa inmueble' }
 ];
 
   constructor() { }
